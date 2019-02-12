@@ -1,32 +1,161 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-image: url('./assets/trees-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'proxima-nova', sans-serif;
+}
+
+.am-page-wrapper {
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.am-page-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 475px;
+  margin: 0px auto;
+}
+
+.am-page-form:last-of-type {
+  margin-top: 50px;
+}
+
+.am-page-form-title {
+  color: #006EBF;
+  font-size: 1.75em;
+  margin-bottom: 15px;
+}
+
+.am-page-form p {
+  font-weight: 200;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.am-page-form-column-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.am-page-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input-wrapper {
+  margin: 8px 0;
+}
+
+.text-input-wrapper p {
+  margin-bottom: 5px;
+}
+
+.text-input-wrapper input {
+  border: 1px solid #006EBF;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  height: 35px;
+  width: 200px;
+  padding: 0 5px;
+  font-size: 16px;
+}
+
+.text-input-wrapper input:focus {
+  outline: none;
+}
+
+.column-1 {
+  margin-right: 50px;
+}
+
+.am-page-form-submit-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.am-page-form-submit-button {
+  background-color: #006EBF;
+  border: 1px solid #006EBF;
+  color: #ffffff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  padding: 10px 30px;
+  font-size: 16px;
+  margin-top: 8px;
+  cursor: pointer;
+  -moz-transition: background-color .5s, color .5s, border .5s;
+  -webkit-transition: background-color .5s, color .5s, border .5s;
+  transition: background-color .5s, color .5s, border .5s;
+}
+
+.am-page-form-submit-button:active {
+  transform: translateY(2px);
+  -webkit-transform: translateY(2px);
+  -moz-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  -o-transform: translateY(2px);
+}
+
+.am-page-form-submit-button:focus {
+  outline: none;
+}
+
+.am-selection-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.am-selection-style-layer {
+  color: #707070;
+  border: 1px solid #707070;
+  background-color: #ffffff;
+}
+
+.am-selection-wrapper select {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 100%;
+  -ms-flex-item-align: center;
+  align-self: center;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.am-selection-wrapper select:focus {
+  outline: none;
+}
+
+.checkbox-wrapper {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.checkbox-wrapper p {
+  margin-left: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.checkbox-wrapper input[type="checkbox"] {
+  border: 1px solid #707070;
+  background-color: #ffffff;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
 }
