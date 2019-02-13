@@ -9,9 +9,10 @@ class App extends Component {
           <div className="am-page-form">
           <div className="am-selection-wrapper">
             <div className="am-selection-style-layer">
-              <select>
-                <option selected disabled>Account Manager Name</option>
+              <select defaultValue='Account Manager Name'>
+                <option disabled>Account Manager Name</option>
                 <option>Alex Martinez</option>
+                <option>Alex Ugarte</option>
                 <option>Alysha Gonzales</option>
                 <option>Ana Lucy Galeana</option>
                 <option>Antonio Hopper</option>
@@ -19,16 +20,24 @@ class App extends Component {
                 <option>Chenoa Swanson</option>
                 <option>Dana Martinez</option>
                 <option>Dion Nizzi</option>
+                <option>Dominique Glover</option>
                 <option>Erick Martinez</option>
+                <option>Eldy Davila</option>
                 <option>Jazz Sullivan</option>
                 <option>Jehan Hasan</option>
+                <option>Joseph Lewis</option>
                 <option>Joyce Hughes</option>
+                <option>Katherine Pape</option>
                 <option>Luis Tepetlapa</option>
+                <option>Luz Nicolas</option>
+                <option>Maria Jose Padron</option>
                 <option>Melissa Horstman</option>
                 <option>Melody Eastburn</option>
                 <option>Mylz Hernandez</option>
                 <option>Noah Curwick</option>
                 <option>Rachel Garcia</option>
+                <option>Rene Rios</option>
+                <option>Rory Hutchinson</option>
                 <option>Seamus Campbell</option>
                 <option>Theo Cobb</option>
                 <option>Yessica Galeana</option>
@@ -40,31 +49,36 @@ class App extends Component {
             <div className="am-page-form-column-wrapper">
               <div className="am-page-form-column column-1">
                 <div className="checkbox-wrapper">
-                  <input type="checkbox" name="" />
+                  <input type="checkbox" name="am_email_options" value="Swipe Smarter Promotion" />
                   <p>Swipe Smarter</p>
                 </div>
                 <div className="checkbox-wrapper">
-                  <input type="checkbox" name="" />
+                  <input type="checkbox" name="am_email_options" value="Tax Refund (DPS)" />
+                  <p>Tax Refund (DPS)</p>
+                </div>
+                <div className="checkbox-wrapper">
+                  <input type="checkbox" name="am_email_options" value="Tax Refund (FIS)" />
+                  <p>Tax Refund (FIS)</p>
+                </div>
+                {/* <div className="checkbox-wrapper">
+                  <input type="checkbox" name="am_email_options" value="Survey" />
                   <p>Survey</p>
                 </div>
+                <div className="checkbox-wrapper">
+                  <input type="checkbox" name="am_email_options" value="Mobile App" />
+                  <p>Mobile App</p>
+                </div> */}
                 <div className="text-input-wrapper">
                   <p>Cardholder First Name</p>
                   <input required name="cardholder_name" />
                 </div>
               </div>
               <div className="am-page-form-column column-2">
-                <div className="checkbox-wrapper">
-                  <input type="checkbox" name="" />
-                  <p>Tax Refund</p>
-                </div>
-                <div className="checkbox-wrapper">
-                  <input type="checkbox" name="" />
-                  <p>Mobile App</p>
-                </div>
                 <div className="text-input-wrapper">
                   <p>Cardholder Email</p>
                   <input required name="cardholder_email" />
                 </div>
+                <input hidden name="" />
               </div>
             </div>
             <div className="am-page-form-submit-button-wrapper">
