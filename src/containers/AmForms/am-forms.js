@@ -1,48 +1,99 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../../App.css';
+import auth0 from 'auth0-js';
+import { addLead } from '../../services/leads-service';
+import * as config from '../../auth_config';
 
-class App extends Component {
+class AmForms extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      company_name: null,
+      phone_number: null,
+      cardholder_name: null,
+      contact_name: null,
+      contact_email: null,
+      account_number: null
+    }
+    this.handleCompanyName = this.handleCompanyName.bind(this);
+    this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
+    this.handleCardholderName = this.handleCardholderName.bind(this);
+    this.handleContactName = this.handleContactName.bind(this);
+    this.handleContactEmail = this.handleContactEmail.bind(this);
+    this.handleAccountNumber = this.handleAccountNumber.bind(this);
+    this.addLead = this.addLead.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  handleCompanyName(event) {
+    this.setState({
+      company_name: event.target.value
+    })
+  }
+
+  handlePhoneNumber(event) {
+    this.setState({
+      phone_number: event.target.value
+    })
+  }
+
+  handleCardholderName(event) {
+    this.setState({
+      cardholder_name: event.target.value
+    })
+  }
+
+  handleContactName(event) {
+    this.setState({
+      contact_name: event.target.value
+    })
+  }
+
+  handleContactEmail(event) {
+    this.setState({
+      contact_email: event.target.value
+    })
+  }
+
+  handleAccountNumber(event) {
+    this.setState({
+      account_number: event.target.value
+    })
+  }
+
+  addLead(event) {
+    event.preventDefault();
+    if (this.props.profile) {
+      const am_name = this.props.profile['http://localhost/user_metadata'].name;
+      const am_email = this.props.profile.email;
+      addLead(this.state.company_name, this.state.phone_number, this.state.cardholder_name, this.state.contact_name, this.state.contact_email, this.state.account_number, am_name, am_email);
+    } else {
+      alert('There was an error finding your account info. Please notify your supervisor or the product team.')
+    }
+  }
+
+  logout(event) {
+    event.preventDefault();
+    var webAuth = new auth0.WebAuth({
+      domain:       config.DOMAIN,
+      clientID:     config.CLIENTID
+    });
+    
+    webAuth.logout({
+      returnTo: config.BASEURL,
+      client_id: config.CLIENTID
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <div className="am-page-wrapper">
           <div className="am-page-form">
           <div className="am-selection-wrapper">
-            <div className="am-selection-style-layer">
-              <select defaultValue='Account Manager Name'>
-                <option disabled>Account Manager Name</option>
-                <option>Alex Martinez</option>
-                <option>Alex Ugarte</option>
-                <option>Alysha Gonzales</option>
-                <option>Ana Lucy Galeana</option>
-                <option>Antonio Hopper</option>
-                <option>Anyssa Guzman</option>
-                <option>Chenoa Swanson</option>
-                <option>Dana Martinez</option>
-                <option>Dion Nizzi</option>
-                <option>Dominique Glover</option>
-                <option>Erick Martinez</option>
-                <option>Eldy Davila</option>
-                <option>Jazz Sullivan</option>
-                <option>Jehan Hasan</option>
-                <option>Joseph Lewis</option>
-                <option>Joyce Hughes</option>
-                <option>Katherine Pape</option>
-                <option>Luis Tepetlapa</option>
-                <option>Luz Nicolas</option>
-                <option>Maria Jose Padron</option>
-                <option>Melissa Horstman</option>
-                <option>Melody Eastburn</option>
-                <option>Mylz Hernandez</option>
-                <option>Noah Curwick</option>
-                <option>Rachel Garcia</option>
-                <option>Rene Rios</option>
-                <option>Rory Hutchinson</option>
-                <option>Seamus Campbell</option>
-                <option>Theo Cobb</option>
-                <option>Yessica Galeana</option>
-              </select>
-            </div>
+          <button onClick={this.logout}>Logout</button>
           </div>
           <span className="am-page-form-title">Marketing Emails</span>
           <form action="https://go.pardot.com/l/323461/2019-02-12/h87d3" method="post">
@@ -60,14 +111,6 @@ class App extends Component {
                   <input type="checkbox" name="am_email_options" value="Tax Refund (FIS)" />
                   <p>Tax Refund (FIS)</p>
                 </div>
-                {/* <div className="checkbox-wrapper">
-                  <input type="checkbox" name="am_email_options" value="Survey" />
-                  <p>Survey</p>
-                </div>
-                <div className="checkbox-wrapper">
-                  <input type="checkbox" name="am_email_options" value="Mobile App" />
-                  <p>Mobile App</p>
-                </div> */}
                 <div className="text-input-wrapper">
                   <p>Cardholder First Name</p>
                   <input required name="cardholder_name" />
@@ -88,39 +131,39 @@ class App extends Component {
         </div>
         <div className="am-page-form">
           <span className="am-page-form-title">2nd Job Lead</span>
-          <form action="http://www2.solepaycard.com/l/323461/2019-02-08/h6c8k" method="post">
+          <form>
             <div className="am-page-form-column-wrapper">
               <div className="am-page-form-column column-1">
                 <div className="text-input-wrapper">
                   <p>Company Name</p>
-                  <input required name="company_name" />
+                  <input onChange={this.handleCompanyName} name="company_name" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Business Phone Number</p>
-                  <input required name="business_phone_number" />
+                  <input onChange={this.handlePhoneNumber} name="business_phone_number" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Referring Cardholder Name</p>
-                  <input required name="referring_cardholder_name" />
+                  <input onChange={this.handleCardholderName} name="referring_cardholder_name" />
                 </div>
               </div>
               <div className="am-page-form-column column-2">
                 <div className="text-input-wrapper">
                   <p>Contact Name (optional)</p>
-                  <input name="contact_name" />
+                  <input onChange={this.handleContactName} name="contact_name" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Contact Email (optional)</p>
-                  <input name="contact_email" />
+                  <input onChange={this.handleContactEmail} name="contact_email" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Last 4 of CH Acct #</p>
-                  <input required name="cardholder_account_number" />
+                  <input onChange={this.handleAccountNumber} name="cardholder_account_number" />
                 </div>
               </div>
             </div>
             <div className="am-page-form-submit-button-wrapper">
-            <button className="am-page-form-submit-button" type="submit">Submit</button>
+            <button onClick={this.addLead} className="am-page-form-submit-button">Submit</button>
             </div>
           </form> 
         </div>
@@ -130,4 +173,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default AmForms;
