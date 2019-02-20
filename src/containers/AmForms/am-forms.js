@@ -3,6 +3,8 @@ import '../../App.css';
 import auth0 from 'auth0-js';
 import { addLead } from '../../services/leads-service';
 import * as config from '../../auth_config';
+import NumberFormat from 'react-number-format';
+import ReactLoading from 'react-loading';
 
 class AmForms extends Component {
 
@@ -10,12 +12,13 @@ class AmForms extends Component {
     super(props);
 
     this.state = {
-      company_name: null,
-      phone_number: null,
-      cardholder_name: null,
-      contact_name: null,
-      contact_email: null,
-      account_number: null
+      company_name: '',
+      phone_number: '',
+      cardholder_name: '',
+      contact_name: '',
+      contact_email: '',
+      account_number: '',
+      showLoadingButton: false
     }
     this.handleCompanyName = this.handleCompanyName.bind(this);
     this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
@@ -68,7 +71,30 @@ class AmForms extends Component {
     if (this.props.profile) {
       const am_name = this.props.profile['http://localhost/user_metadata'].name;
       const am_email = this.props.profile.email;
-      addLead(this.state.company_name, this.state.phone_number, this.state.cardholder_name, this.state.contact_name, this.state.contact_email, this.state.account_number, am_name, am_email);
+      if (this.state.company_name === '' || this.state.phone_number === '' || this.state.cardholder_name === '' || this.state.account_number === '') {
+        alert('A required field is missing.')
+      } else {
+        this.setState({
+          showLoadingButton: true
+        });
+        addLead(this.state.company_name, this.state.phone_number, this.state.cardholder_name, this.state.contact_name, this.state.contact_email, this.state.account_number, am_name, am_email)
+        .then(() => {
+          // Reset state and input values //
+          document.getElementById("job-lead-form").reset();
+          const clear_state = Object.assign({},this.state);
+          for(let key in clear_state){
+            clear_state[key] = '';
+          }
+          this.setState(clear_state);
+          // Temporarily change button text on post success //
+          document.getElementById('job-lead-submit-button').disabled = true;
+          document.getElementById('job-lead-submit-button').innerText = "Sent!"
+          setTimeout(function(){
+            document.getElementById('job-lead-submit-button').disabled = false;
+            document.getElementById('job-lead-submit-button').innerText = "Submit";
+          }, 1500);
+        });
+      }
     } else {
       alert('There was an error finding your account info. Please notify your supervisor or the product team.')
     }
@@ -121,49 +147,53 @@ class AmForms extends Component {
                   <p>Cardholder Email</p>
                   <input required name="cardholder_email" />
                 </div>
-                <input hidden name="" />
               </div>
             </div>
             <div className="am-page-form-submit-button-wrapper">
             <button className="am-page-form-submit-button" type="submit">Send</button>
             </div>
-          </form> 
+          </form>
         </div>
         <div className="am-page-form">
           <span className="am-page-form-title">2nd Job Lead</span>
-          <form>
+          <form id="job-lead-form">
             <div className="am-page-form-column-wrapper">
               <div className="am-page-form-column column-1">
                 <div className="text-input-wrapper">
                   <p>Company Name</p>
-                  <input onChange={this.handleCompanyName} name="company_name" />
+                  <input value={this.state.company_name} onChange={this.handleCompanyName} name="company_name" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Business Phone Number</p>
-                  <input onChange={this.handlePhoneNumber} name="business_phone_number" />
+                  <NumberFormat value={this.state.phone_number} format="(###) ###-####" mask="_" onChange={this.handlePhoneNumber} name="business_phone_number" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Referring Cardholder Name</p>
-                  <input onChange={this.handleCardholderName} name="referring_cardholder_name" />
+                  <input value={this.state.cardholder_name} onChange={this.handleCardholderName} name="referring_cardholder_name" />
                 </div>
               </div>
               <div className="am-page-form-column column-2">
                 <div className="text-input-wrapper">
                   <p>Contact Name (optional)</p>
-                  <input onChange={this.handleContactName} name="contact_name" />
+                  <input value={this.state.contact_name} onChange={this.handleContactName} name="contact_name" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Contact Email (optional)</p>
-                  <input onChange={this.handleContactEmail} name="contact_email" />
+                  <input value={this.state.contact_email} onChange={this.handleContactEmail} name="contact_email" />
                 </div>
                 <div className="text-input-wrapper">
                   <p>Last 4 of CH Acct #</p>
-                  <input onChange={this.handleAccountNumber} name="cardholder_account_number" />
+                  <NumberFormat format="####" value={this.state.account_number} onChange={this.handleAccountNumber} name="cardholder_account_number" />
                 </div>
               </div>
             </div>
             <div className="am-page-form-submit-button-wrapper">
-            <button onClick={this.addLead} className="am-page-form-submit-button">Submit</button>
+            {
+              this.state.showLoadingButton ?
+              <ReactLoading type={'spin'} color={'#006ebf'} height={'40px'} width={'40px'} />
+              :
+              <button onClick={this.addLead} id="job-lead-submit-button" className="am-page-form-submit-button">Submit</button>
+            }
             </div>
           </form> 
         </div>

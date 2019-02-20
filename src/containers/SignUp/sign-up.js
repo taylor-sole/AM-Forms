@@ -11,13 +11,11 @@ class SignUp extends Component {
     this.state = {
       fullName: null,
       userEmail: null,
-      userPassword: null,
-      jobTitle: null
+      userPassword: null
     }
     this.handleName = this.handleName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleTitle = this.handleTitle.bind(this);
 
     this.signUp = this.signUp.bind(this);
   }
@@ -57,7 +55,7 @@ class SignUp extends Component {
       connection: 'Username-Password-Authentication', 
       email: this.state.userEmail, 
       password: this.state.userPassword,
-      user_metadata: { name: this.state.fullName, title: this.state.jobTitle }
+      user_metadata: { name: this.state.fullName }
     }, function (err, user_metadata) {
       if (err) return alert('Something went wrong: ' + err.message);
       return alert('user successfully created!') 
@@ -81,21 +79,13 @@ class SignUp extends Component {
                   <p>Email</p>
                   <input onChange={this.handleEmail} type="email" id="signup-email" required/>
                 </div>
-              </div>
-              <div className="am-page-form-column column-2">
-                <div className="text-input-wrapper">
-                  <p>Job Title</p>
-                  <input onChange={this.handleTitle} type="text" id="job-title" required/>
-                </div>
                 <div className="text-input-wrapper">
                   <p>Password</p>
                   <input onChange={this.handlePassword} type="password" id="signup-password" required/>
                 </div>
               </div>
             </div>
-            <div className="am-page-form-submit-button-wrapper">
-              <button onClick={this.signUp} className="am-page-form-submit-button">Sign Up</button>
-            </div>
+            <button onClick={this.signUp} className="am-page-form-submit-button">Sign Up</button>
           </form>
         </div>
         </div>

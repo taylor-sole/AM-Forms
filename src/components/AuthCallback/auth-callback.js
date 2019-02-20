@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../App.css';
+import Loading from '../Loading/loading';
 
 class AuthCallback extends Component {
 
@@ -7,7 +8,7 @@ class AuthCallback extends Component {
 
     return (
       <div className="App">
-        Loading...     
+        <Loading />   
       </div>
     );
   }

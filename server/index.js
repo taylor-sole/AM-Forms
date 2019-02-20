@@ -32,6 +32,10 @@ const leadsCtrl = require('./controllers/leadsCtrl')
 
 app.post('/api/leads', leadsCtrl.addLead)
 
+// GET //
+
+app.get('/api/leads', leadsCtrl.getAllLeads)
+
 // LISTEN/PORT //
 
 app.get('*', function (request, response){

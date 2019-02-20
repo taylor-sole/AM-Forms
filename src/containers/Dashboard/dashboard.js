@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../../App.css';
+import AmManagement from '../AmManagement/am-management';
 import AmForms from '../AmForms/am-forms';
+import Loading from '../../components/Loading/loading';
 
 class Dashboard extends Component {
 
@@ -30,11 +32,19 @@ class Dashboard extends Component {
   }
 
   render() {
-    return (
-      <section>
-        <AmForms {...this.state} />
-      </section>
-    );
+    if (!this.state.profile) {
+      return (<Loading />)
+    } else {
+      return (
+        <section>
+          { this.state.profile['http://localhost/user_metadata'].role === 'Manager' ?
+            <AmManagement {...this.state} />
+            :
+            <AmForms {...this.state} />
+          }
+        </section>
+      );
+    }
   }
 }
 
