@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../../App.css';
-import auth0 from 'auth0-js';
+import '../../styles/App.css';
 import { getAllLeads } from '../../services/leads-service';
-import * as config from '../../auth_config';
-import ReactLoading from 'react-loading';
+import moment from 'moment';
+import 'moment-timezone';
+import ManagementNav from '../ManagementNav/management-nav';
 
 class AmManagement extends Component {
 
@@ -11,49 +11,95 @@ class AmManagement extends Component {
     super(props);
 
     this.state = {
-      leads: null
+      leadsByAm: null,
+      leadsPeriodStartDate: null,
+      leadsPeriodEndDate: null
     }
+    this.sortLeaderboard = this.sortLeaderboard.bind(this);
+  }
+
+  filterLeadsByAmName(res) {
+      const array_elements = res;
+      const arrayWithTotals = [];
+
+      array_elements.sort(function(a, b) {
+        return a.am_name - b.am_name;
+      });
+        
+      let current = null;
+      let cnt = 0;
+      let amLeadList = [];
+
+      for (let i = 0; i < array_elements.length; i++) {
+          if (array_elements[i].am_name !== current) {
+              if (cnt > 0) {
+                arrayWithTotals.push({name: current, total: cnt, list: amLeadList});
+              }
+              current = array_elements[i].am_name;
+              cnt = 1;
+              amLeadList = [];
+              amLeadList.push(array_elements[i]);
+          } else {
+            amLeadList.push(array_elements[i]);
+            cnt++;
+          }
+      }
+      if (cnt > 0) {
+        arrayWithTotals.push({name: current, total: cnt, list: amLeadList});
+      }
+      this.setState({
+        leadsByAm: arrayWithTotals
+      })
   }
 
   componentDidMount() {
     getAllLeads().then((res) => {
+      this.filterLeadsByAmName(res);
       this.setState({
         leads: res
       })
     });
   }
 
-  logout(event) {
-    event.preventDefault();
-    var webAuth = new auth0.WebAuth({
-      domain:       config.DOMAIN,
-      clientID:     config.CLIENTID
-    });
-    
-    webAuth.logout({
-      returnTo: config.BASEURL,
-      client_id: config.CLIENTID
-    });
+  sortLeaderboard(event) {
+    console.log(event.target.value)
   }
 
   render() {
     let allLeads;
-    if (this.state.leads) {
-      allLeads = this.state.leads.map((item, i) => (
-        <ul key={i}>
-          <li>Company Name: {item.company_name}</li>
-        </ul>
+    if (this.state.leadsByAm) {
+      allLeads = this.state.leadsByAm.map((accountManager, i) => (
+      <div>
+        <li><strong>{accountManager.name}</strong>: {accountManager.total}</li>
+        {/* <ul>
+        {accountManager.list.map((lead, i) => (
+          <li>Company: {lead.company_name}, 
+          Time: {moment.tz(lead.time_added.toString(), "America/Los_Angeles").format('llll')}
+          </li>
+        ))} 
+        </ul> */}
+        </div>
       ))
     }
 
     return (
-      <div className="App">
+      <section className="am-management-dashboard-container">
+        <ManagementNav {...this.props} />
         <div className="am-page-wrapper">
-          <button onClick={this.logout}>Logout</button>
-          <span className="am-page-form-title">2nd Job Leads Overview</span>
-          {allLeads}
-         </div>
-      </div>
+          <span className="am-page-form-title">2nd Job Leads Report</span>
+          <p>Total 2nd Job Leads</p>
+          <p>Leaderboard</p>
+          <select>
+            <option selected disabled>Sort by</option>
+            <option onClick={this.sortLeaderboard} value="1">Most to least</option>
+            <option onClick={this.sortLeaderboard} value="2">Least to most</option>
+            <option onClick={this.sortLeaderboard} value="3">Alphabetical</option>
+          </select>
+          <ul>
+            {allLeads}
+          </ul>
+        </div>
+      </section>
     );
   }
 }

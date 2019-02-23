@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../styles/App.css';
 import AmManagement from '../AmManagement/am-management';
 import AmForms from '../AmForms/am-forms';
 import Loading from '../../components/Loading/loading';
@@ -36,7 +36,7 @@ class Dashboard extends Component {
       return (<Loading />)
     } else {
       return (
-        <section>
+        <section className="App">
           { this.state.profile['http://localhost/user_metadata'].role === 'Manager' ?
             <AmManagement {...this.state} />
             :

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../styles/App.css';
 import auth0 from 'auth0-js';
-import { userSignUp } from '../../services/auth-service';
 import * as config from '../../auth_config';
 
 class SignUp extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../styles/App.css';
 import auth0 from 'auth0-js';
 import { addLead } from '../../services/leads-service';
 import * as config from '../../auth_config';
@@ -115,12 +115,9 @@ class AmForms extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <div className="am-page-wrapper">
           <div className="am-page-form">
-          <div className="am-selection-wrapper">
-          <button onClick={this.logout}>Logout</button>
-          </div>
           <span className="am-page-form-title">Marketing Emails</span>
           <form action="https://go.pardot.com/l/323461/2019-02-12/h87d3" method="post">
             <div className="am-page-form-column-wrapper">

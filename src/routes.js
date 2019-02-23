@@ -3,7 +3,7 @@ import { Redirect, Route, Router } from 'react-router-dom';
 import Auth from './containers/Auth/Auth';
 import history from './history';
 
-import './index.css';
+import './styles/index.css';
 
 // COMPONENTS //
 import AuthCallback from './components/AuthCallback/auth-callback';
