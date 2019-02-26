@@ -8,7 +8,7 @@ class AuthCallback extends Component {
 
     return (
       <div className="App">
-        <Loading />   
+        <Loading />
       </div>
     );
   }

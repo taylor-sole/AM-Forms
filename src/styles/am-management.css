@@ -1,0 +1,55 @@
+#am-leaderboard-section {
+  margin-top: 35px;
+}
+
+.leaderboard-title-dropdown-contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 275px;
+}
+
+.leaderboard-title-dropdown-contain p {
+  font-size: 20px;
+  color: #006EBF;
+}
+
+.am-leaderboard-list {
+  margin-top: 5px;
+}
+
+.am-leaderboard-list li {
+  background-color: #ffffff;
+  border: 1px solid #707070;
+  color: #707070;
+  padding: 5px;
+}
+
+.viewing-options-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.am-management-page-wrapper {
+  margin-left: 305px;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.am-management-page-wrapper .item-1 {
+  margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.am-management-page-wrapper .item-1 p {
+  font-size: 14px;
+  color: #006EBF;
+}
+
+.am-management-page-wrapper .item-2 p {
+  font-size: 18px;
+  color: #006EBF;
+}

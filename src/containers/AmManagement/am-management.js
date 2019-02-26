@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
 import { getAllLeads } from '../../services/leads-service';
+import ManagementNav from '../../components/ManagementNav/management-nav';
+import AmLeaderboard from '../../components/AmLeaderboard/am-leaderboard';
 import moment from 'moment';
-import 'moment-timezone';
-import ManagementNav from '../ManagementNav/management-nav';
 
 class AmManagement extends Component {
 
@@ -15,7 +15,6 @@ class AmManagement extends Component {
       leadsPeriodStartDate: null,
       leadsPeriodEndDate: null
     }
-    this.sortLeaderboard = this.sortLeaderboard.bind(this);
   }
 
   filterLeadsByAmName(res) {
@@ -52,7 +51,32 @@ class AmManagement extends Component {
       })
   }
 
+  handleTimePeriod() {
+    const date = new Date();
+    const dayOfWeek = date.getDay();
+    const today = moment(date.setDate(date.getDate())).format('ddd MM/DD/YYYY');
+    const last7DaysStart = moment().startOf('day').subtract(1,'week').format('ddd MM/DD/YYYY');
+    const yesterday = moment(date.setDate(date.getDate() - 1)).format('ddd MM/DD/YYYY');
+    let prevMonday = moment(date.setDate(date.getDate() - dayOfWeek)).format('ddd MM/DD/YYYY');
+    if (dayOfWeek === 0){
+      prevMonday = date.setDate(date.getDate() - 7);
+    }
+    // If Monday, set period from previous Mon to Sun, for reporting purposes //
+    if (dayOfWeek === 1) {
+      this.setState({
+        leadsPeriodStartDate: last7DaysStart,
+        leadsPeriodEndDate: yesterday
+      })
+    } else {
+      this.setState({
+        leadsPeriodStartDate: prevMonday,
+        leadsPeriodEndDate: today
+      })
+    }
+  }
+
   componentDidMount() {
+    this.handleTimePeriod();
     getAllLeads().then((res) => {
       this.filterLeadsByAmName(res);
       this.setState({
@@ -61,43 +85,31 @@ class AmManagement extends Component {
     });
   }
 
-  sortLeaderboard(event) {
-    console.log(event.target.value)
-  }
-
   render() {
-    let allLeads;
+    let amList;
     if (this.state.leadsByAm) {
-      allLeads = this.state.leadsByAm.map((accountManager, i) => (
-      <div>
-        <li><strong>{accountManager.name}</strong>: {accountManager.total}</li>
-        {/* <ul>
-        {accountManager.list.map((lead, i) => (
-          <li>Company: {lead.company_name}, 
-          Time: {moment.tz(lead.time_added.toString(), "America/Los_Angeles").format('llll')}
-          </li>
-        ))} 
-        </ul> */}
-        </div>
+      amList = this.state.leadsByAm.map((accountManager, i) => (
+        <option key={i}>{accountManager.name}</option>  
       ))
     }
-
     return (
       <section className="am-management-dashboard-container">
         <ManagementNav {...this.props} />
-        <div className="am-page-wrapper">
+        <div className="am-management-page-wrapper">
           <span className="am-page-form-title">2nd Job Leads Report</span>
-          <p>Total 2nd Job Leads</p>
-          <p>Leaderboard</p>
-          <select>
-            <option selected disabled>Sort by</option>
-            <option onClick={this.sortLeaderboard} value="1">Most to least</option>
-            <option onClick={this.sortLeaderboard} value="2">Least to most</option>
-            <option onClick={this.sortLeaderboard} value="3">Alphabetical</option>
-          </select>
-          <ul>
-            {allLeads}
-          </ul>
+          <div className="viewing-options-wrapper">
+            <div className="item-1">
+              <p>Viewing:</p>
+              <select>
+                <option selected>Overall</option>
+                {amList}  
+              </select>
+            </div>
+            <div className="item-2">
+              <p>For the week of: {this.state.leadsPeriodStartDate} - {this.state.leadsPeriodEndDate}</p>
+            </div>
+          </div>
+          <AmLeaderboard {...this.state} />
         </div>
       </section>
     );

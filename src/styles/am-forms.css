@@ -1,0 +1,17 @@
+.am-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 65px;
+}
+
+.am-header p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.am-header span {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 16px;
+}

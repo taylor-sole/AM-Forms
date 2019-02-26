@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
+import '../../styles/am-forms.css';
 import auth0 from 'auth0-js';
 import { addLead } from '../../services/leads-service';
 import * as config from '../../auth_config';
@@ -20,6 +21,7 @@ class AmForms extends Component {
       account_number: '',
       showLoadingButton: false
     }
+
     this.handleCompanyName = this.handleCompanyName.bind(this);
     this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
     this.handleCardholderName = this.handleCardholderName.bind(this);
@@ -118,6 +120,10 @@ class AmForms extends Component {
       <div>
         <div className="am-page-wrapper">
           <div className="am-page-form">
+          <div className="am-header">
+            <p>Welcome {this.props.profile['http://localhost/user_metadata'].name}</p>
+            <span onClick={this.logout}>Logout</span>
+          </div>
           <span className="am-page-form-title">Marketing Emails</span>
           <form action="https://go.pardot.com/l/323461/2019-02-12/h87d3" method="post">
             <div className="am-page-form-column-wrapper">

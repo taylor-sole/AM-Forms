@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import * as config from '../../auth_config';
 import auth0 from 'auth0-js';
 
@@ -24,8 +25,8 @@ class ManagementNav extends Component {
           <p>Welcome {this.props.profile['http://localhost/user_metadata'].name}!</p>
           <span onClick={this.logout}>Logout</span>
           <div className="manage-links-wrapper">
-            <p>Manage Users</p>
-            <p>Manage Reports</p>
+            <p><Link to='sign-up'>Manage Users</Link></p>
+            {/* <p>Manage Reports</p> */}
           </div>
         </div>
       </div>
