@@ -34,7 +34,7 @@ app.post('/api/leads', leadsCtrl.addLead)
 
 // GET //
 
-app.get('/api/leads', leadsCtrl.getAllLeads)
+app.get('/api/leads/:time_period_start/:time_period_end', leadsCtrl.getAllLeads)
 
 // LISTEN/PORT //
 

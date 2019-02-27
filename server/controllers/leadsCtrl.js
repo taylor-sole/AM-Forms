@@ -6,16 +6,17 @@ module.exports = {
     dbInstance.addLead([ company_name, company_phone_number, cardholder_name, contact_name, contact_email, account_number, am_name, am_email ])
       .then( () => res.sendStatus(200) )
       .catch( err => {
-        res.status(500).send({errorMessage: "Oops! Something went wrong. Our engineers have been informed!"});
+        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
         console.log(err)
       } );
   },
   getAllLeads: ( req, res, next) => {
     const dbInstance = req.app.get('db');
-    dbInstance.getAllLeads()
-      .then( leads => res.status(200).send( leads ) )
+    const { time_period_start, time_period_end } = req.params;
+    dbInstance.getAllLeads([time_period_start, time_period_end])
+      .then(leads => res.status(200).send( leads ) )
       .catch( err => {
-        alert("Oops! Something went wrong. Please let the Product team know.");
+        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
         console.log(err)
       } );
   }
