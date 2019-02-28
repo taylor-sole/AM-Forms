@@ -4,6 +4,8 @@ import { getAllLeads } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import AmLeaderboard from '../../components/AmLeaderboard/am-leaderboard';
 import moment from 'moment';
+import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
+import AmManagementIndividual from '../../components/AmManagementIndividual/am-management-individual';
 
 class AmManagement extends Component {
 
@@ -13,8 +15,11 @@ class AmManagement extends Component {
     this.state = {
       leadsByAm: null,
       leadsPeriodStartDate: null,
-      leadsPeriodEndDate: null
+      leadsPeriodEndDate: null,
+      todaysDate: null,
+      viewReportFor: 'Overall'
     }
+    this.handleAmSelection = this.handleAmSelection.bind(this);
   }
 
   filterLeadsByAmName(res) {
@@ -54,30 +59,28 @@ class AmManagement extends Component {
   handleTimePeriod() {
     const date = new Date();
     const dayOfWeek = date.getDay();
-    const today = moment(date.setDate(date.getDate())).format('ddd MM/DD/YYYY');
-    const last7DaysStart = moment().startOf('day').subtract(1,'week').format('ddd MM/DD/YYYY');
-    const yesterday = moment(date.setDate(date.getDate() - 1)).format('ddd MM/DD/YYYY');
-    let prevMonday = moment(date.setDate(date.getDate() - dayOfWeek)).format('ddd MM/DD/YYYY');
-    if (dayOfWeek === 0){
-      prevMonday = date.setDate(date.getDate() - 7);
-    }
-    // If Monday, set period from previous Mon to Sun, for reporting purposes //
+    const today = date.setDate(date.getDate());
+    const tomorrow = date.setDate(date.getDate() + 1);
+    const last7DaysStart = moment().startOf('day').subtract(1,'week');
+    const yesterday = date.setDate(date.getDate() - 1);
+    let prevMonday = date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     if (dayOfWeek === 1) {
-      this.setState({
+       this.setState({
         leadsPeriodStartDate: last7DaysStart,
         leadsPeriodEndDate: yesterday
       })
     } else {
-      this.setState({
+       this.setState({
         leadsPeriodStartDate: prevMonday,
-        leadsPeriodEndDate: today
+        leadsPeriodEndDate: today,
+        todaysDate: today
       })
     }
   }
 
-  componentDidMount() {
-    this.handleTimePeriod();
-    getAllLeads().then((res) => {
+  async componentDidMount() {
+    await this.handleTimePeriod();
+    getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment.utc(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
       this.setState({
         leads: res
@@ -85,11 +88,25 @@ class AmManagement extends Component {
     });
   }
 
+  handleAmSelection(event) {
+    if (event.target.value === 'Overall') {
+      this.setState({
+        viewReportFor: event.target.value
+      })
+    } else {
+      const leadsArrCopy = this.state.leadsByAm.slice(0);
+      const selectedAm = leadsArrCopy.filter(item => item.name === event.target.value);
+      this.setState({
+        viewReportFor: selectedAm
+      })
+    }
+  }
+
   render() {
     let amList;
     if (this.state.leadsByAm) {
       amList = this.state.leadsByAm.map((accountManager, i) => (
-        <option key={i}>{accountManager.name}</option>  
+        <option value={accountManager.name} key={i}>{accountManager.name}</option>  
       ))
     }
     return (
@@ -100,16 +117,21 @@ class AmManagement extends Component {
           <div className="viewing-options-wrapper">
             <div className="item-1">
               <p>Viewing:</p>
-              <select>
+              <select onChange={this.handleAmSelection}>
                 <option selected>Overall</option>
-                {amList}  
+                {amList}
               </select>
             </div>
             <div className="item-2">
-              <p>For the week of: {this.state.leadsPeriodStartDate} - {this.state.leadsPeriodEndDate}</p>
+              <p>For the week of: {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}</p>
             </div>
           </div>
-          <AmLeaderboard {...this.state} />
+        {
+          this.state.viewReportFor === 'Overall' ?
+          <AmManagementOverview {...this.state} />
+        :
+          <AmManagementIndividual {...this.state} />
+        }
         </div>
       </section>
     );

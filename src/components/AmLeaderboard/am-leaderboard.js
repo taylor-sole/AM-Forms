@@ -54,14 +54,7 @@ class AmDashboard extends Component {
               <span>{accountManager.name}</span><span>{accountManager.total}</span>
             </div>
           </li>
-          {/* <ul>
-            {accountManager.list.map((lead, i) => (
-            <li>Company: {lead.company_name}, 
-            Time: {moment.tz(lead.time_added.toString(), "America/Los_Angeles").format('llll')}
-            </li>
-            ))} 
-          </ul> */}
-            </div>
+        </div>
           ))
         }
     
