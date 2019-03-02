@@ -27,15 +27,18 @@ massive( massiveUri ).then( dbInstance => {
 // CONTROLLERS //
 
 const leadsCtrl = require('./controllers/leadsCtrl')
+const salesLeadsCtrl = require('./controllers/salesLeadsCtrl')
 
 // POST //
 
 app.post('/api/leads', leadsCtrl.addLead)
+app.post('/api/sales-leads', salesLeadsCtrl.addLeadForSales)
 
 // GET //
 
 app.get('/api/leads/:time_period_start/:time_period_end', leadsCtrl.getAllLeads)
 app.get('/api/leads/:time_period_start/:time_period_end/:am_email', leadsCtrl.getLeadsByAm)
+app.get('/api/sales-leads', salesLeadsCtrl.getLeadsForSales)
 
 // LISTEN/PORT //
 
