@@ -39,6 +39,11 @@ app.post('/api/sales-leads', salesLeadsCtrl.addLeadForSales)
 app.get('/api/leads/:time_period_start/:time_period_end', leadsCtrl.getAllLeads)
 app.get('/api/leads/:time_period_start/:time_period_end/:am_email', leadsCtrl.getLeadsByAm)
 app.get('/api/sales-leads', salesLeadsCtrl.getLeadsForSales)
+app.get('/api/sales-leads/:assigned_sales_rep', salesLeadsCtrl.getLeadsForSalesByRep)
+
+
+// DELETE //
+app.delete('/api/sales-leads/:unique_id', salesLeadsCtrl.deleteLead)
 
 // LISTEN/PORT //
 
