@@ -48,15 +48,12 @@ class AmDashboard extends Component {
           leadsList = this.state.leaderboardList
         }
         allLeads = leadsList.map((accountManager, i) => (
-        <div>
-          <li>
-            <div className="leaderboard-title-dropdown-contain">
-              <span>{accountManager.name}</span><span>{accountManager.total}</span>
-            </div>
-          </li>
-        </div>
-          ))
-        }
+        <tr>
+          <td>{accountManager.name}</td>
+          <td>{accountManager.total}</td> 
+        </tr>
+        ))
+      }
     
         return (
           <div id="am-leaderboard-section">
@@ -70,7 +67,9 @@ class AmDashboard extends Component {
               </select>
             </div>
             <ul className="am-leaderboard-list">
+            <table className="leads-list">
               {allLeads}
+            </table>
             </ul>
           </div>
         );

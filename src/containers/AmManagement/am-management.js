@@ -4,6 +4,7 @@ import { getAllLeads } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import AmLeaderboard from '../../components/AmLeaderboard/am-leaderboard';
 import moment from 'moment';
+import 'moment-timezone';
 import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 import AmManagementIndividual from '../../components/AmManagementIndividual/am-management-individual';
 
@@ -60,7 +61,6 @@ class AmManagement extends Component {
     const date = new Date();
     const dayOfWeek = date.getDay();
     const today = date.setDate(date.getDate());
-    const tomorrow = date.setDate(date.getDate() + 1);
     const last7DaysStart = moment().startOf('day').subtract(1,'week');
     const yesterday = date.setDate(date.getDate() - 1);
     let prevMonday = date.setDate(date.getDate() - (date.getDay() + 6) % 7);

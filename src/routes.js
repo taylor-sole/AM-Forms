@@ -41,7 +41,6 @@ export const makeMainRoutes = () => {
               <Profile auth={auth} {...props} />
             )
           )} />
-        <Route exact path="/sign-up" render={(props) => <SignUp {...props} /> } />
         <Route exact path="/callback" render={(props) => {
           handleAuthentication(props);
           return <AuthCallback {...props} /> 

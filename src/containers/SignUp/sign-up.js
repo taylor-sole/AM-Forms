@@ -10,12 +10,13 @@ class SignUp extends Component {
     this.state = {
       fullName: null,
       userEmail: null,
-      userPassword: null
+      userPassword: null,
+      team: null
     }
     this.handleName = this.handleName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-
+    this.handleTeamSelection = this.handleTeamSelection.bind(this);
     this.signUp = this.signUp.bind(this);
   }
 
@@ -37,9 +38,9 @@ class SignUp extends Component {
     })
   }
 
-  handleTitle(event) {
+  handleTeamSelection(event) {
     this.setState({
-      jobTitle: event.target.value
+      team: event.target.value
     })
   }
 
@@ -54,7 +55,7 @@ class SignUp extends Component {
       connection: 'Username-Password-Authentication', 
       email: this.state.userEmail, 
       password: this.state.userPassword,
-      user_metadata: { name: this.state.fullName }
+      user_metadata: { name: this.state.fullName, team: this.state.team }
     }, function (err, user_metadata) {
       if (err) return alert('Something went wrong: ' + err.message);
       return alert('user successfully created!') 
@@ -81,6 +82,13 @@ class SignUp extends Component {
                 <div className="text-input-wrapper">
                   <p>Password</p>
                   <input onChange={this.handlePassword} type="password" id="signup-password" required/>
+                </div>
+                <div className="text-input-wrapper">
+                  <select onChange={this.handleTeamSelection}>
+                    <option selected disabled>Team</option>
+                    <option value="Account Management">Account Management</option>
+                    <option value="Sales">Sales</option>
+                  </select>
                 </div>
               </div>
             </div>

@@ -54,6 +54,10 @@
   color: #006EBF;
 }
 
+#sales-leads-list {
+  margin: 35px auto;
+}
+
 .leads-list {
   margin-top: 35px;
   padding: 5px;
@@ -65,7 +69,6 @@
 }
 
 .leads-list td {
-  /* border-bottom: 1px solid #707070;
-  border-top: 1px solid #707070; */
   padding: 10px;
+  text-align: center;
 }

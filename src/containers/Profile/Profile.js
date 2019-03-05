@@ -26,7 +26,7 @@ class Profile extends Component {
       <div className="container">
       { profile['http://localhost/user_metadata'] ?
         <div className="profile-area">
-          <h1>Hello, {profile['http://localhost/user_metadata'].name}</h1>
+          <h1>Hello, {profile.name}</h1>
         </div>
         :
         <div>Loading...</div>

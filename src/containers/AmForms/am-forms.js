@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import '../../styles/App.css';
 import '../../styles/am-forms.css';
 import auth0 from 'auth0-js';
-import { addLead } from '../../services/leads-service';
+import { addLead, getLeadsByAm } from '../../services/leads-service';
 import * as config from '../../auth_config';
 import NumberFormat from 'react-number-format';
 import ReactLoading from 'react-loading';
+import AmStats from '../../components/AmStats/am-stats';
+import moment from 'moment';
+import 'moment-timezone';
+import request from 'request';
+import { addLeadForSales } from '../../services/sales-leads-service';
 
 class AmForms extends Component {
 
@@ -19,9 +24,12 @@ class AmForms extends Component {
       contact_name: '',
       contact_email: '',
       account_number: '',
-      showLoadingButton: false
+      showLoadingButton: false,
+      leadsAmount: null,
+      leadsPeriodStartDate: null,
+      leadsPeriodEndDate: null
     }
-
+    this.handleTimePeriod = this.handleTimePeriod.bind(this);
     this.handleCompanyName = this.handleCompanyName.bind(this);
     this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
     this.handleCardholderName = this.handleCardholderName.bind(this);
@@ -30,6 +38,26 @@ class AmForms extends Component {
     this.handleAccountNumber = this.handleAccountNumber.bind(this);
     this.addLead = this.addLead.bind(this);
     this.logout = this.logout.bind(this);
+  }
+
+  handleTimePeriod() {
+    const date = new Date();
+    const today = date.setDate(date.getDate());
+    let prevMonday = date.setDate(date.getDate() - (date.getDay() + 6) % 7);
+    this.setState({
+      leadsPeriodStartDate: prevMonday,
+      leadsPeriodEndDate: today,
+    })
+  }
+
+  async componentDidMount() {
+
+    await this.handleTimePeriod();
+    getLeadsByAm(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment.utc(this.state.leadsPeriodEndDate).format(), this.props.profile.email).then((res) => {
+      this.setState({
+        leadsAmount: res.length
+      })
+    });
   }
 
   handleCompanyName(event) {
@@ -70,8 +98,19 @@ class AmForms extends Component {
 
   addLead(event) {
     event.preventDefault();
+    const salesReps = [
+      'Dallas Harmon',
+      'Joseph Lundy',
+      'Joe O\'Hanlon',
+      'Ken Spitzer',
+      'Brooke Weltzin',
+      'Brandon Umbarger',
+      'Dave Richardson',
+      'Sharon Conway',
+      'Kolton Epperson'
+    ]
     if (this.props.profile) {
-      const am_name = this.props.profile['http://localhost/user_metadata'].name;
+      const am_name = this.props.profile.name;
       const am_email = this.props.profile.email;
       if (this.state.company_name === '' || this.state.phone_number === '' || this.state.cardholder_name === '' || this.state.account_number === '') {
         alert('A required field is missing.')
@@ -81,13 +120,25 @@ class AmForms extends Component {
         });
         addLead(this.state.company_name, this.state.phone_number, this.state.cardholder_name, this.state.contact_name, this.state.contact_email, this.state.account_number, am_name, am_email)
         .then(() => {
+          let getRandomRep = salesReps[Math.floor(Math.random() * salesReps.length)];
+          addLeadForSales(this.state.company_name, this.state.phone_number, this.state.cardholder_name, this.state.contact_name, this.state.contact_email, this.state.account_number, am_name, am_email, getRandomRep);
+          // Add one to total leads //
+          let newLeadsAmount = this.state.leadsAmount;
+          newLeadsAmount++
+          this.setState({
+            leadsAmount: newLeadsAmount
+          })
           // Reset state and input values //
           document.getElementById("job-lead-form").reset();
-          const clear_state = Object.assign({},this.state);
-          for(let key in clear_state){
-            clear_state[key] = '';
-          }
-          this.setState(clear_state);
+          this.setState({
+            company_name: '',
+            phone_number: '',
+            cardholder_name: '',
+            contact_name: '',
+            contact_email: '',
+            account_number: '',
+            showLoadingButton: false
+          });
           // Temporarily change button text on post success //
           document.getElementById('job-lead-submit-button').disabled = true;
           document.getElementById('job-lead-submit-button').innerText = "Sent!"
@@ -121,9 +172,10 @@ class AmForms extends Component {
         <div className="am-page-wrapper">
           <div className="am-page-form">
           <div className="am-header">
-            <p>Welcome {this.props.profile['http://localhost/user_metadata'].name}</p>
+            <p>Welcome {this.props.profile.name}</p>
             <span onClick={this.logout}>Logout</span>
           </div>
+          <AmStats {...this.state} />
           <span className="am-page-form-title">Marketing Emails</span>
           <form action="https://go.pardot.com/l/323461/2019-02-12/h87d3" method="post">
             <div className="am-page-form-column-wrapper">
@@ -198,7 +250,7 @@ class AmForms extends Component {
               <button onClick={this.addLead} id="job-lead-submit-button" className="am-page-form-submit-button">Submit</button>
             }
             </div>
-          </form> 
+          </form>
         </div>
         </div>
       </div>

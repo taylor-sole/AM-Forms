@@ -22,10 +22,10 @@ class ManagementNav extends Component {
     return (
       <div class="header-container">
         <div class="header-content-wrapper">
-          <p>Welcome {this.props.profile['http://localhost/user_metadata'].name}!</p>
+          <p>Welcome {this.props.profile.name}!</p>
           <span onClick={this.logout}>Logout</span>
           <div className="manage-links-wrapper">
-            <p><Link to='sign-up'>Manage Users</Link></p>
+            {/* <p><Link to='sign-up'>Manage Users</Link></p> */}
             {/* <p>Manage Reports</p> */}
           </div>
         </div>

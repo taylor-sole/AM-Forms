@@ -3,6 +3,7 @@ import '../../styles/App.css';
 import AmManagement from '../AmManagement/am-management';
 import AmForms from '../AmForms/am-forms';
 import Loading from '../../components/Loading/loading';
+import SalesDashboard from '../../containers/SalesDashboard/sales-dashboard';
 
 class Dashboard extends Component {
 
@@ -16,11 +17,13 @@ class Dashboard extends Component {
   componentWillMount() {
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
-      getProfile((err, profile) => {
+       getProfile((err, profile) => {
+        profile.name = profile.name.replace(/@.*$/,"").split('.').join(' ');
+        profile.name = profile.name.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
         this.setState({ profile });
       });
     } else {
-      this.setState({ profile: userProfile });
+       this.setState({ profile: userProfile });
     }
   }
 
@@ -37,8 +40,21 @@ class Dashboard extends Component {
     } else {
       return (
         <section className="App">
-          { this.state.profile['http://localhost/user_metadata'].role === 'Manager' ?
-            <AmManagement {...this.state} />
+          {
+            this.state.profile['http://localhost/user_metadata'] ?
+              <div>
+                { this.state.profile['http://localhost/user_metadata'].team === 'Sales' ?
+                <SalesDashboard {...this.state} />
+                :
+                <div>
+                  { this.state.profile['http://localhost/user_metadata'].role === 'Manager' ?
+                    <AmManagement {...this.state} />
+                    :
+                    <AmForms {...this.state} />
+                  }
+                </div>
+                }
+              </div>
             :
             <AmForms {...this.state} />
           }
