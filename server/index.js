@@ -18,9 +18,15 @@ app.use(session({
 }))
 app.use(cors())
 
-const massiveUri = server_config.MASSIVE_URI;
-
-massive( massiveUri ).then( dbInstance => {
+massive({
+  host: server_config.HOST,
+  port: 5432,
+  database: server_config.DATABASE,
+  user: server_config.USER,
+  password: server_config.PASSWORD,
+  ssl: false,
+  poolSize: 10
+}).then( dbInstance => {
   app.set('db', dbInstance)
 }).catch( err => console.log(err) );
 
