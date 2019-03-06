@@ -6,7 +6,7 @@ module.exports = {
         .then( () => res.sendStatus(200) )
         .catch( err => {
           res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-          console.log(err)
+
         } );
     },
     getLeadsForSales: ( req, res, next) => {
@@ -15,7 +15,7 @@ module.exports = {
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
           res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-          console.log(err)
+
         });
     },
     getLeadsForSalesByRep: ( req, res, next) => {
@@ -24,7 +24,7 @@ module.exports = {
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
           res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-          console.log(err)
+
         });
     },
     deleteLead: (req, res) => {
@@ -34,7 +34,6 @@ module.exports = {
       .then( () => res.sendStatus(200) )
       .catch( err => {
         res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-        console.log(err)
       } );
     }
   };

@@ -7,7 +7,6 @@ module.exports = {
       .then( () => res.sendStatus(200) )
       .catch( err => {
         res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-        console.log(err)
       } );
   },
   getAllLeads: ( req, res, next) => {
@@ -17,7 +16,6 @@ module.exports = {
       .then(leads => res.status(200).send( leads ) )
       .catch( err => {
         res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-        console.log(err)
       } );
   },
   getLeadsByAm: ( req, res, next) => {
@@ -27,7 +25,6 @@ module.exports = {
       .then(leadsByAm => res.status(200).send( leadsByAm ) )
       .catch( err => {
         res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-        console.log(err)
       });
   }
 };
