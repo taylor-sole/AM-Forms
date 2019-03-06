@@ -24,7 +24,7 @@ class Profile extends Component {
     const { profile } = this.state;
     return (
       <div className="container">
-      { profile['http://ec2-54-212-62-171.us-west-2.compute.amazonaws.com/user_metadata'] ?
+      { profile['http://ec2-34-220-113-11.us-west-2.compute.amazonaws.com/user_metadata'] ?
         <div className="profile-area">
           <h1>Hello, {profile.name}</h1>
         </div>

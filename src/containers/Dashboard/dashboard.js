@@ -41,13 +41,13 @@ class Dashboard extends Component {
       return (
         <section className="App">
           {
-            this.state.profile['http://ec2-54-212-62-171.us-west-2.compute.amazonaws.com/user_metadata'] ?
+            this.state.profile['http://ec2-34-220-113-11.us-west-2.compute.amazonaws.com/user_metadata'] ?
               <div>
-                { this.state.profile['http://ec2-54-212-62-171.us-west-2.compute.amazonaws.com/user_metadata'].team === 'Sales' ?
+                { this.state.profile['http://ec2-34-220-113-11.us-west-2.compute.amazonaws.com/user_metadata'].team === 'Sales' ?
                 <SalesDashboard {...this.state} />
                 :
                 <div>
-                  { this.state.profile['http://ec2-54-212-62-171.us-west-2.compute.amazonaws.com/user_metadata'].role === 'Manager' ?
+                  { this.state.profile['http://ec2-34-220-113-11.us-west-2.compute.amazonaws.com/user_metadata'].role === 'Manager' ?
                     <AmManagement {...this.state} />
                     :
                     <AmForms {...this.state} />

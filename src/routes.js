@@ -34,12 +34,8 @@ export const makeMainRoutes = () => {
               <Dashboard auth={auth} {...props} />
             )
           )} />
-        <Route exact path="/profile" render={(props) => (
-            !auth.isAuthenticated() ? (
-              <Redirect to="/"/>
-            ) : (
-              <Profile auth={auth} {...props} />
-            )
+        <Route exact path="/sign-up" render={(props) => (
+          <SignUp auth={auth} {...props} />
           )} />
         <Route exact path="/callback" render={(props) => {
           handleAuthentication(props);

@@ -11,7 +11,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: config.DOMAIN,
     clientID: config.CLIENTID,
-    redirectUri: 'http://localhost/callback',
+    redirectUri: 'http://ec2-34-220-113-11.us-west-2.compute.amazonaws.com/callback',
     responseType: 'token id_token',
     scope: 'openid email profile'
   });
