@@ -57,7 +57,7 @@ app.get('*', function (request, response){
     response.sendFile(path.join(__dirname, '.././build/', 'index.html'))
 })
 
-const port = 8080
+const port = 80
 
 app.listen(port, () => {
   console.log("Started server on port", port)
