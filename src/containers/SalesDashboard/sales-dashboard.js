@@ -21,12 +21,14 @@ class SalesDashboard extends Component {
   componentDidMount() {
     if (this.props.profile['http://localhost/user_metadata'].role === 'Manager') {
       getLeadsForSales().then((res) => {
+        console.log(res)
         this.setState({
           leadsForSales: res
         })
       });
     } else {
       getLeadsForSalesByRep(this.props.profile.name).then((res) => {
+        console.log(res)
         this.setState({
           leadsForSales: res
         })
