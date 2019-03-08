@@ -18,6 +18,7 @@ class Dashboard extends Component {
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
        getProfile((err, profile) => {
+         console.log(this.props.auth)
         profile.name = profile.name.replace(/@.*$/,"").split('.').join(' ');
         profile.name = profile.name.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
         this.setState({ profile });
@@ -38,7 +39,6 @@ class Dashboard extends Component {
     if (!this.state.profile) {
       return (<Loading />)
     } else {
-      console.log(this.state)
       return (
         <section className="App">
           {
