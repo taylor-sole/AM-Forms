@@ -38,6 +38,7 @@ class Dashboard extends Component {
     if (!this.state.profile) {
       return (<Loading />)
     } else {
+      console.log(this.state)
       return (
         <section className="App">
           {
