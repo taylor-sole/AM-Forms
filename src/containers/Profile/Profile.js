@@ -24,7 +24,7 @@ class Profile extends Component {
     const { profile } = this.state;
     return (
       <div className="container">
-      { profile['https://am-leads.solepaycard.com/user_metadata'] ?
+      { profile['http://localhost/user_metadata'] ?
         <div className="profile-area">
           <h1>Hello, {profile.name}</h1>
         </div>

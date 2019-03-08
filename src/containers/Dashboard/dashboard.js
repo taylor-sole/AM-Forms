@@ -42,13 +42,13 @@ class Dashboard extends Component {
       return (
         <section className="App">
           {
-            this.state.profile['https://am-leads.solepaycard.com/user_metadata'] ?
+            this.state.profile['http://localhost/user_metadata'] ?
               <div>
-                { this.state.profile['https://am-leads.solepaycard.com/user_metadata'].team === 'Sales' ?
+                { this.state.profile['http://localhost/user_metadata'].team === 'Sales' ?
                 <SalesDashboard {...this.state} />
                 :
                 <div>
-                  { this.state.profile['https://am-leads.solepaycard.com/user_metadata'].role === 'Manager' ?
+                  { this.state.profile['http://localhost/user_metadata'].role === 'Manager' ?
                     <AmManagement {...this.state} />
                     :
                     <AmForms {...this.state} />
