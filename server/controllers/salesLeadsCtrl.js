@@ -15,7 +15,6 @@ module.exports = {
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
           res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-
         });
     },
     getLeadsForSalesByRep: ( req, res, next) => {
@@ -24,13 +23,12 @@ module.exports = {
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
           res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-
         });
     },
     deleteLead: (req, res) => {
       const dbInstance = req.app.get('db');
-      const {unique_id} = req.params;
-      dbInstance.deleteLead([unique_id])
+      const {id} = req.params;
+      dbInstance.deleteLead([id])
       .then( () => res.sendStatus(200) )
       .catch( err => {
         res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});

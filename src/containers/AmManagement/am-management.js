@@ -82,9 +82,6 @@ class AmManagement extends Component {
     await this.handleTimePeriod();
     getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment.utc(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
-      this.setState({
-        leads: res
-      })
     });
   }
 

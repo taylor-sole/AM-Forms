@@ -7,7 +7,6 @@ const express = require('express')
       , cors = require('cors')
       , server_config = require('../server_config')
       , path = require('path')
-      , https = require('https')
 
 // INITIALIZE //
 
@@ -50,7 +49,7 @@ app.get('/api/sales-leads/:assigned_sales_rep', salesLeadsCtrl.getLeadsForSalesB
 
 
 // DELETE //
-app.delete('/api/sales-leads/:unique_id', salesLeadsCtrl.deleteLead)
+app.delete('/api/sales-leads/:id', salesLeadsCtrl.deleteLead)
 
 // LISTEN/PORT //
 
@@ -58,7 +57,7 @@ app.get('*', function (request, response){
     response.sendFile(path.join(__dirname, '.././build/', 'index.html'))
 })
 
-const port = 8080
+const port = 80
 
 app.listen(port, () => {
   console.log("Started server on port", port)

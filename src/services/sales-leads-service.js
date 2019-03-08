@@ -26,8 +26,8 @@ export const getLeadsForSalesByRep = function(assigned_sales_rep) {
   });
 }
 
-export const deleteLead = function(unique_id) {
-  return axios.delete(`/api/sales-leads/${unique_id}`, {
+export const deleteLead = function(id) {
+  return axios.delete(`/api/sales-leads/${id}`, {
   })
   .then(res => {return res.data})
 }

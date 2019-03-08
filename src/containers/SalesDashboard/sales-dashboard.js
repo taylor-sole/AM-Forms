@@ -21,14 +21,12 @@ class SalesDashboard extends Component {
   componentDidMount() {
     if (this.props.profile['http://localhost/user_metadata'].role === 'Manager') {
       getLeadsForSales().then((res) => {
-        console.log(res)
         this.setState({
           leadsForSales: res
         })
       });
     } else {
       getLeadsForSalesByRep(this.props.profile.name).then((res) => {
-        console.log(res)
         this.setState({
           leadsForSales: res
         })
@@ -37,7 +35,7 @@ class SalesDashboard extends Component {
   }
 
   deleteLead(i) {
-    deleteLead(this.state.leadsForSales[i].unique_id);
+    deleteLead(this.state.leadsForSales[i].id);
     this.setState({leadsForSales: [...this.state.leadsForSales.slice(0, i), ...this.state.leadsForSales.slice(i+1)]})
   }
 
