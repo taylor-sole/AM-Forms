@@ -51,7 +51,6 @@ class AmForms extends Component {
   }
 
   async componentDidMount() {
-
     await this.handleTimePeriod();
     getLeadsByAm(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment.utc(this.state.leadsPeriodEndDate).format(), this.props.profile.email).then((res) => {
       this.setState({

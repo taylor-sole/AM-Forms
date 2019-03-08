@@ -18,22 +18,20 @@ class SalesDashboard extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.profile) {
+  async componentDidMount() {
       if (this.props.profile['http://localhost/user_metadata'].role === 'Manager') {
-      getLeadsForSales().then((res) => {
+      await getLeadsForSales().then((res) => {
         this.setState({
           leadsForSales: res
         })
       });
       } else {
-        getLeadsForSalesByRep(this.props.profile.name).then((res) => {
+        await getLeadsForSalesByRep(this.props.profile.name).then((res) => {
           this.setState({
             leadsForSales: res
           })
         });
       }
-    }
   }
 
   deleteLead(i) {
@@ -74,6 +72,8 @@ class SalesDashboard extends Component {
             </tr>
           )
         })
+      } else {
+        return (<Loading />)
       }
       return (
         <div className="am-page-wrapper">
