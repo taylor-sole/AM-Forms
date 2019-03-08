@@ -24,9 +24,7 @@ massive({
   port: 5432,
   database: server_config.DATABASE,
   user: server_config.USER,
-  password: server_config.PASSWORD,
-  ssl: false,
-  poolSize: 10
+  password: server_config.PASSWORD
 }).then( dbInstance => {
   app.set('db', dbInstance)
 }).catch( err => console.log(err) );
