@@ -13,7 +13,7 @@ export default class Auth {
     clientID: config.CLIENTID,
     redirectUri: 'https://am-leads.solepaycard.com/callback',
     responseType: 'token id_token',
-    scope: 'openid email profile'
+    scope: 'openid email profile user_metadata'
   });
 
   constructor() {
