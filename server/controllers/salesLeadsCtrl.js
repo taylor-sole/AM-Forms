@@ -5,8 +5,7 @@ module.exports = {
       dbInstance.addLeadForSales([ company_name, company_phone_number, cardholder_name, contact_name, contact_email, account_number, am_name, am_email, assigned_sales_rep ])
         .then( () => res.sendStatus(200) )
         .catch( err => {
-          res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
-
+          res.status(500).send({errorMessage: err});
         } );
     },
     getLeadsForSales: ( req, res, next) => {
@@ -14,7 +13,7 @@ module.exports = {
       dbInstance.getLeadsForSales()
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
-          res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+          res.status(500).send({errorMessage: err});
         });
     },
     getLeadsForSalesByRep: ( req, res, next) => {
@@ -22,7 +21,7 @@ module.exports = {
       dbInstance.getLeadsForSalesByRep([req.params.assigned_sales_rep])
         .then(leads => res.status(200).send( leads ) )
         .catch( err => {
-          res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+          res.status(500).send({errorMessage: err});
         });
     },
     deleteLead: (req, res) => {
@@ -31,7 +30,7 @@ module.exports = {
       dbInstance.deleteLead([id])
       .then( () => res.sendStatus(200) )
       .catch( err => {
-        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+        res.status(500).send({errorMessage: err});
       } );
     }
   };
