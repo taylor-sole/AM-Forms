@@ -6,7 +6,7 @@ module.exports = {
     dbInstance.addLead([ company_name, company_phone_number, cardholder_name, contact_name, contact_email, account_number, am_name, am_email ])
       .then( () => res.sendStatus(200) )
       .catch( err => {
-        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+        res.status(500).send({errorMessage: err});
       } );
   },
   getAllLeads: ( req, res, next) => {
@@ -15,7 +15,7 @@ module.exports = {
     dbInstance.getAllLeads([time_period_start, time_period_end])
       .then(leads => res.status(200).send( leads ) )
       .catch( err => {
-        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+        res.status(500).send({errorMessage: err});
       } );
   },
   getLeadsByAm: ( req, res, next) => {
@@ -24,7 +24,7 @@ module.exports = {
     dbInstance.getLeadsByAm([time_period_start, time_period_end, am_email])
       .then(leadsByAm => res.status(200).send( leadsByAm ) )
       .catch( err => {
-        res.status(500).send({errorMessage: "Oops! Something went wrong. Please let the Product team know."});
+        res.status(500).send({errorMessage: err});
       });
   }
 };
