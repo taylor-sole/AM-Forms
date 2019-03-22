@@ -11,7 +11,8 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: config.DOMAIN,
     clientID: config.CLIENTID,
-    redirectUri: 'https://am-leads.solepaycard.com/callback',
+    redirectUri: 'http://ec2-52-41-182-183.us-west-2.compute.amazonaws.com/callback',
+    // redirectUri: 'https://am-leads.solepaycard.com/callback',
     responseType: 'token id_token',
     scope: 'openid email profile user_metadata'
   });
