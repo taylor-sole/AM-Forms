@@ -67,7 +67,7 @@ class AmManagement extends Component {
     if (dayOfWeek === 1) {
       if (selectedTime === 'current week') {
         await this.setState({
-          leadsPeriodStartDate: prevMonday,
+          leadsPeriodStartDate: today,
           leadsPeriodEndDate: today,
           todaysDate: today
         })
