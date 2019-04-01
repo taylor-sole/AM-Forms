@@ -7,7 +7,7 @@ import 'moment-timezone';
 class LeadsList extends Component {
 
   render() {
-    const leadData = this.props.viewReportFor[0].list.map((item) => {
+    const leadData = this.props.viewReportFor[0].list.map((item, i) => {
       return (
         <tr key={i}>
           <td>{item.company_name}</td>
