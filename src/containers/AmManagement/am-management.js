@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
-import { getAllLeads } from '../../services/leads-service';
+import { getAllLeads, deleteLeadAmManagement } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
-import AmLeaderboard from '../../components/AmLeaderboard/am-leaderboard';
 import moment from 'moment';
 import 'moment-timezone';
 import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
@@ -84,7 +83,6 @@ class AmManagement extends Component {
         todaysDate: today
       })
     }
-    console.log(this.state)
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
     });
@@ -92,6 +90,11 @@ class AmManagement extends Component {
 
    componentDidMount() {
      this.handleTimePeriod();
+    }
+
+    deleteLeadAmManagement(i) {
+      deleteLeadAmManagement(this.state.leadsByAm[i].id);
+      this.setState({leadsByAm: [...this.state.leadsByAm.slice(0, i), ...this.state.leadsByAm.slice(i+1)]})
     }
 
   handleAmSelection(event) {
@@ -112,7 +115,7 @@ class AmManagement extends Component {
     let amList;
     if (this.state.leadsByAm) {
       amList = this.state.leadsByAm.map((accountManager, i) => (
-        <option value={accountManager.name} key={i}>{accountManager.name}</option>  
+        <option value={accountManager.name} key={i}>{accountManager.name}<button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></option>  
       ))
     }
     return (

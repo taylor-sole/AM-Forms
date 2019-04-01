@@ -26,5 +26,14 @@ module.exports = {
       .catch( err => {
         res.status(500).send({errorMessage: err});
       });
+  },
+  deleteLeadAmManagement: (req, res) => {
+    const dbInstance = req.app.get('db');
+    const {id} = req.params;
+    dbInstance.deleteLeadAmManagement([id])
+    .then( () => res.sendStatus(200) )
+    .catch( err => {
+      res.status(500).send({errorMessage: err});
+    } );
   }
 };

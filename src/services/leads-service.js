@@ -25,3 +25,9 @@ export const getLeadsByAm = function(time_period_start, time_period_end, am_emai
     alert('There was an error. Please notify your supervisor or the Product team.');
   });
 }
+
+export const deleteLeadAmManagement = function(id) {
+  return axios.delete(`/api/leads/${id}`, {
+  })
+  .then(res => {return res.data})
+}

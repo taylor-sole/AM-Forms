@@ -49,6 +49,7 @@ app.get('/api/sales-leads/:assigned_sales_rep', salesLeadsCtrl.getLeadsForSalesB
 
 
 // DELETE //
+app.delete('/api/leads/:id', leadsCtrl.deleteLeadAmManagement)
 app.delete('/api/sales-leads/:id', salesLeadsCtrl.deleteLead)
 
 // LISTEN/PORT //
