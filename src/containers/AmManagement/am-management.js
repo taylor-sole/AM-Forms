@@ -57,7 +57,7 @@ class AmManagement extends Component {
       })
   }
 
-  handleTimePeriod() {
+   handleTimePeriod(selectedTime) {
     const date = new Date();
     const dayOfWeek = date.getDay();
     const today = date.setDate(date.getDate());
@@ -65,10 +65,18 @@ class AmManagement extends Component {
     const yesterday = date.setDate(date.getDate() - 1);
     let prevMonday = date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     if (dayOfWeek === 1) {
-       this.setState({
-        leadsPeriodStartDate: last7DaysStart,
-        leadsPeriodEndDate: yesterday
-      })
+      if (selectedTime === 'current week') {
+        this.setState({
+          leadsPeriodStartDate: prevMonday,
+          leadsPeriodEndDate: today,
+          todaysDate: today
+        })
+      } else {
+        this.setState({
+          leadsPeriodStartDate: last7DaysStart,
+          leadsPeriodEndDate: yesterday
+        })
+      }
     } else {
        this.setState({
         leadsPeriodStartDate: prevMonday,
@@ -76,13 +84,13 @@ class AmManagement extends Component {
         todaysDate: today
       })
     }
-  }
-
-  async componentDidMount() {
-    await this.handleTimePeriod();
     getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment.utc(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
     });
+  }
+
+   componentDidMount() {
+     this.handleTimePeriod();
   }
 
   handleAmSelection(event) {
@@ -120,7 +128,24 @@ class AmManagement extends Component {
               </select>
             </div>
             <div className="item-2">
-              <p>For the week of: {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}</p>
+              <p>For the week of: </p>
+              {
+                new Date().getDay() !== 1 ?
+                <div>
+                  {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
+                </div>
+                :
+                <select onChange={(e) => {
+                  this.handleTimePeriod(e.target.value);
+                }}>
+                  <option value="last week">
+                    {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
+                  </option>
+                  <option value="current week">
+                    {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
+                  </option>
+                </select>
+              }
             </div>
           </div>
         {

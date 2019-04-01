@@ -106,7 +106,8 @@ class AmForms extends Component {
       'Brandon Umbarger',
       'Dave Richardson',
       'Sharon Conway',
-      'Kolton Epperson'
+      'Kolton Epperson',
+      'Samantha Cooper'
     ]
     if (this.props.profile) {
       const am_name = this.props.profile.name;
