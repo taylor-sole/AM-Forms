@@ -113,10 +113,23 @@ class AmManagement extends Component {
 
   render() {
     let amList;
+    let leadData;
     if (this.state.leadsByAm) {
       amList = this.state.leadsByAm.map((accountManager, i) => (
-        <option value={accountManager.name} key={i}>{accountManager.name}<button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></option>  
+        <option value={accountManager.name} key={i}>{accountManager.name}</option>  
       ))
+      leadData = this.state.viewReportFor[0].list.map((item, i) => {
+        return (
+          <tr key={i}>
+            <td>{item.company_name}</td>
+            <td>{item.company_phone_number}</td> 
+            <td>{item.cardholder_name}</td>
+            <td>{item.account_number}</td>
+            <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
+            <td><button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></td>
+          </tr>
+        )
+      })
     }
     return (
       <section className="am-management-dashboard-container">
@@ -156,7 +169,16 @@ class AmManagement extends Component {
           this.state.viewReportFor === 'Overall' ?
           <AmManagementOverview {...this.state} />
         :
-          <AmManagementIndividual {...this.state} />
+        <table className="leads-list">
+          <tr>
+            <th>Company Name</th>
+            <th>Phone Number</th>
+            <th>Referring CH Name</th>
+            <th>Last 4 of CH Acct</th>
+            <th>Date Submitted</th>
+          </tr>
+          {leadData}
+        </table>
         }
         </div>
       </section>

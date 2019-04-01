@@ -9,12 +9,13 @@ class LeadsList extends Component {
   render() {
     const leadData = this.props.viewReportFor[0].list.map((item) => {
       return (
-        <tr>
+        <tr key={i}>
           <td>{item.company_name}</td>
           <td>{item.company_phone_number}</td> 
           <td>{item.cardholder_name}</td>
           <td>{item.account_number}</td>
           <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
+          <td><button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></td>
         </tr>
       )
     })
