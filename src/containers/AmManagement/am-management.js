@@ -118,7 +118,7 @@ class AmManagement extends Component {
       amList = this.state.leadsByAm.map((accountManager, i) => (
         <option value={accountManager.name} key={i}>{accountManager.name}</option>  
       ))
-      leadData = this.state.viewReportFor[0].list.map((item, i) => {
+      leadData = this.props.viewReportFor[0].list.map((item, i) => {
         return (
           <tr key={i}>
             <td>{item.company_name}</td>
