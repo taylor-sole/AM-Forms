@@ -119,18 +119,20 @@ class AmManagement extends Component {
         <option value={accountManager.name} key={i}>{accountManager.name}</option>  
       ))
     }
-    leadData = this.state.viewReportFor[0].list.map((item, i) => {
-      return (
-        <tr key={i}>
-          <td>{item.company_name}</td>
-          <td>{item.company_phone_number}</td> 
-          <td>{item.cardholder_name}</td>
-          <td>{item.account_number}</td>
-          <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
-          <td><button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></td>
-        </tr>
-      )
-    })
+    if (this.state.viewReportFor !== 'Overall') {
+      leadData = this.state.viewReportFor[0].list.map((item, i) => {
+        return (
+          <tr key={i}>
+            <td>{item.company_name}</td>
+            <td>{item.company_phone_number}</td> 
+            <td>{item.cardholder_name}</td>
+            <td>{item.account_number}</td>
+            <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
+            <td><button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></td>
+          </tr>
+        )
+      })
+    }
     return (
       <section className="am-management-dashboard-container">
         <ManagementNav {...this.props} />
