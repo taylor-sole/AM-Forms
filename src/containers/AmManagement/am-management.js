@@ -5,7 +5,6 @@ import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
 import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
-import AmManagementIndividual from '../../components/AmManagementIndividual/am-management-individual';
 
 class AmManagement extends Component {
 

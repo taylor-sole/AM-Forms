@@ -30,7 +30,5 @@ export const deleteLeadAmManagement = function(id) {
   return axios.delete(`/api/leads/${id}`, {
   })
   .then(res => {return res.data})
-  .catch(function (error) {
-    alert(error);
-  });
+  .catch(error => alert(error))
 }

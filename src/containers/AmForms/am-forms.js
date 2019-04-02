@@ -9,7 +9,6 @@ import ReactLoading from 'react-loading';
 import AmStats from '../../components/AmStats/am-stats';
 import moment from 'moment';
 import 'moment-timezone';
-import request from 'request';
 import { addLeadForSales } from '../../services/sales-leads-service';
 
 class AmForms extends Component {
