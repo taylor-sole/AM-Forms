@@ -63,7 +63,8 @@ class SalesDashboard extends Component {
             <tr key={i}>
               <td>{item.assigned_sales_rep}</td>
               <td>{item.company_name}</td>
-              <td>{item.company_phone_number}</td> 
+              <td>{item.company_phone_number}</td>
+              <td>{item.cardholder_name}</td>
               <td>{item.contact_name}</td>
               <td>{item.contact_email}</td>
               <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
@@ -89,6 +90,7 @@ class SalesDashboard extends Component {
           <th>Assigned To</th>
           <th>Company Name</th>
           <th>Phone Number</th>
+          <th>Cardholder Name</th>
           <th>Contact Name</th>
           <th>Contact Email</th>
           <th>Date Submitted</th>

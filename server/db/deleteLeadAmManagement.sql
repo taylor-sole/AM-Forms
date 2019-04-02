@@ -1,2 +1,2 @@
 DELETE FROM leads
-WHERE id = '32'
+WHERE id = $1
