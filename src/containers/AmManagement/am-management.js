@@ -95,7 +95,9 @@ class AmManagement extends Component {
     deleteLeadAmManagement(i) {
       console.log(this.state.viewReportFor[0].list);
       // deleteLeadAmManagement(this.state.leadsByAm[i].list.id);
-      this.setState({viewReportFor: [...this.state.viewReportFor[0].list.slice(0, i), ...this.state.viewReportFor[0].list.slice(i+1)]})
+      const reportCopy = this.state.viewReportFor.slice(0);
+      reportCopy[0].list = [...this.state.viewReportFor[0].list.slice(0, i), ...this.state.viewReportFor[0].list.slice(i+1)]
+      this.setState({viewReportFor: reportCopy })
     }
 
   handleAmSelection(event) {
