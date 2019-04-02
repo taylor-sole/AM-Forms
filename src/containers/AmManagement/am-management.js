@@ -93,7 +93,7 @@ class AmManagement extends Component {
     }
 
     deleteLeadAmManagement(i) {
-      console.log(this.state.viewReportFor[0] + 'i is ' + i);
+      console.log(this.state.viewReportFor);
       // deleteLeadAmManagement(this.state.leadsByAm[i].list.id);
       this.setState({leadsByAm: [...this.state.leadsByAm.list.slice(0, i), ...this.state.leadsByAm.list.slice(i+1)]})
     }
