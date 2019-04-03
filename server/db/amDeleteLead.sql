@@ -1,2 +1,2 @@
 DELETE FROM leads
-WHERE id = $1
+WHERE company_name = $1

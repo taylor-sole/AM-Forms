@@ -29,11 +29,11 @@ module.exports = {
   },
   amDeleteLead:(req, res) => {
     const dbInstance = req.app.get('db');
-    const {id} = req.params;
-    dbInstance.amDeleteLead([id])
+    const {company_name} = req.params;
+    dbInstance.amDeleteLead([company_name])
     .then( () => res.sendStatus(200) )
     .catch( err => {
       res.status(500).send({errorMessage: err});
-    } );
+    });
   }
 };

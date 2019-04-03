@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
 import { getAllLeads, amDeleteLead } from '../../services/leads-service';
-import { getLeadsForSales } from '../../services/sales-leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
@@ -93,7 +92,7 @@ class AmManagement extends Component {
     }
 
     deleteLead(i) {
-      amDeleteLead(parseInt(this.state.viewReportFor[0].list[i].id));
+      amDeleteLead(this.state.viewReportFor[0].list[i].company_name);
       const reportCopy = this.state.viewReportFor.slice(0);
       reportCopy[0].list = [...this.state.viewReportFor[0].list.slice(0, i), ...this.state.viewReportFor[0].list.slice(i+1)]
       this.setState({viewReportFor: reportCopy })
