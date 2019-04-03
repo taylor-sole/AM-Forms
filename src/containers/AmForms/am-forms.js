@@ -99,7 +99,7 @@ class AmForms extends Component {
     const salesReps = [
       'Dallas Harmon',
       'Joseph Lundy',
-      'Joe O\'Hanlon',
+      'Joseph OHanlon',
       'Ken Spitzer',
       'Brooke Weltzin',
       'Brandon Umbarger',
