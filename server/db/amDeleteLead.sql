@@ -1,2 +1,2 @@
 DELETE FROM leads
-WHERE cardholder_name = $1
+WHERE id = $1

@@ -29,8 +29,8 @@ module.exports = {
   },
   amDeleteLead:(req, res) => {
     const dbInstance = req.app.get('db');
-    const {cardholder_name} = req.params;
-    dbInstance.amDeleteLead([cardholder_name])
+    const {id} = req.params;
+    dbInstance.amDeleteLead([id])
     .then( () => res.sendStatus(200) )
     .catch( err => {
       res.status(500).send({errorMessage: err});
