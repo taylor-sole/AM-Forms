@@ -26,8 +26,8 @@ export const getLeadsByAm = function(time_period_start, time_period_end, am_emai
   });
 }
 
-export const amDeleteLead = function(company_name) {
-  return axios.delete(`/api/leads/${company_name}`, {
+export const amDeleteLead = function(cardholder_name) {
+  return axios.delete(`/api/leads/${cardholder_name}`, {
   })
   .then(res => {return res.data})
 }
