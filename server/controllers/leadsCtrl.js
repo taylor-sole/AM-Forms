@@ -27,10 +27,10 @@ module.exports = {
         res.status(500).send({errorMessage: err});
       });
   },
-  deleteLeadAmManagement: (req, res) => {
+  amDeleteLead:(req, res) => {
     const dbInstance = req.app.get('db');
     const {id} = req.params;
-    dbInstance.deleteLeadAmManagement([id])
+    dbInstance.amDeleteLead([id])
     .then( () => res.sendStatus(200) )
     .catch( err => {
       res.status(500).send({errorMessage: err});

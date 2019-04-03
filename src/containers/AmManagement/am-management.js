@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
-import { getAllLeads, deleteLeadAmManagement } from '../../services/leads-service';
+import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
@@ -91,8 +91,8 @@ class AmManagement extends Component {
      this.handleTimePeriod();
     }
 
-    deleteLeadAmManagement(i) {
-      deleteLeadAmManagement(this.state.viewReportFor[0].list[i].id);
+    deleteLead(i) {
+      amDeleteLead(this.state.viewReportFor[0].list[i].id);
       const reportCopy = this.state.viewReportFor.slice(0);
       reportCopy[0].list = [...this.state.viewReportFor[0].list.slice(0, i), ...this.state.viewReportFor[0].list.slice(i+1)]
       this.setState({viewReportFor: reportCopy })
@@ -129,7 +129,7 @@ class AmManagement extends Component {
             <td>{item.cardholder_name}</td>
             <td>{item.account_number}</td>
             <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
-            <td><button onClick={() => this.deleteLeadAmManagement(i)}>Delete</button></td>
+            <td><button onClick={() => this.deleteLead(i)}>Delete</button></td>
           </tr>
         )
       })
