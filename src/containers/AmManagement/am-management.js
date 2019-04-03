@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/App.css';
 import { getAllLeads, amDeleteLead } from '../../services/leads-service';
+import { getLeadsForSales } from '../../services/sales-leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
@@ -89,6 +90,7 @@ class AmManagement extends Component {
 
    componentDidMount() {
      this.handleTimePeriod();
+     getLeadsForSales();
     }
 
     deleteLead(i) {
