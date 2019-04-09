@@ -78,16 +78,16 @@ class AmManagement extends Component {
         })
       }
     } else {
-        if (selectedTime === 'current week') {
+        if (selectedTime === 'last week') {
+          await this.setState({
+            leadsPeriodStartDate: lastWeekStart,
+            leadsPeriodEndDate: prevSunday
+          })
+        } else {
           await this.setState({
             leadsPeriodStartDate: prevMonday,
             leadsPeriodEndDate: today,
             todaysDate: today
-          })
-        } else {
-          await this.setState({
-            leadsPeriodStartDate: lastWeekStart,
-            leadsPeriodEndDate: prevSunday
           })
         }
       }
