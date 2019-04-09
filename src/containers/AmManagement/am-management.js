@@ -16,7 +16,8 @@ class AmManagement extends Component {
       leadsPeriodStartDate: null,
       leadsPeriodEndDate: null,
       todaysDate: null,
-      viewReportFor: 'Overall'
+      viewReportFor: 'Overall',
+      weekForViewing: null
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
   }
@@ -151,7 +152,10 @@ class AmManagement extends Component {
           <div className="viewing-options-wrapper">
             <div className="item-1">
               <p>Viewing:</p>
-              <select onChange={this.handleAmSelection}>
+              <select onChange={async() => {
+                await this.handleTimePeriod(this.state.weekForViewing);
+                await this.handleAmSelection();
+              }}>
                 <option selected>Overall</option>
                 {amList}
               </select>
@@ -159,6 +163,9 @@ class AmManagement extends Component {
             <div className="item-2">
               <p>For the week of: </p>
                 <select onChange={(e) => {
+                  this.setState({
+                    weekForViewing: e.target.value
+                  })
                   this.handleTimePeriod(e.target.value);
                 }}>
                   <option selected value="current week">
