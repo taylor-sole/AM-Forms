@@ -72,7 +72,6 @@ class AmDashboard extends Component {
               {allLeads}
             </table>
             </ul>
-
           </div>
         );
       }
