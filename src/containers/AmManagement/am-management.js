@@ -151,10 +151,7 @@ class AmManagement extends Component {
           <div className="viewing-options-wrapper">
             <div className="item-1">
               <p>Viewing:</p>
-              <select onChange={async() => {
-                await this.handleTimePeriod();
-                await this.handleAmSelection();
-              }}>
+              <select onChange={this.handleAmSelection}>
                 <option selected>Overall</option>
                 {amList}
               </select>
