@@ -67,7 +67,7 @@ class AmDashboard extends Component {
               </select>
             </div>
             <ul className="am-leaderboard-list">
-            <p>Total: {this.props.totalLeads}</p>
+            <p><strong>Total: {this.props.totalLeads}</strong></p>
             <table className="leads-list">
               {allLeads}
             </table>
