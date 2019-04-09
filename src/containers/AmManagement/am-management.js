@@ -104,7 +104,6 @@ class AmManagement extends Component {
         totalLeads: res.length
       })
       this.filterLeadsByAmName(res);
-      this.handleAmSelection();
     });
   }
 
