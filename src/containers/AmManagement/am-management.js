@@ -62,6 +62,7 @@ class AmManagement extends Component {
     const last7DaysStart = await moment().startOf('day').subtract(1,'week');
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
+    if (dayOfWeek === 1) {
       if (selectedTime === 'current week') {
         await this.setState({
           leadsPeriodStartDate: today,
@@ -74,6 +75,13 @@ class AmManagement extends Component {
           leadsPeriodEndDate: yesterday
         })
       }
+    } else {
+      await this.setState({
+        leadsPeriodStartDate: prevMonday,
+        leadsPeriodEndDate: today,
+        todaysDate: today
+      })
+    }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
     });
@@ -81,6 +89,7 @@ class AmManagement extends Component {
 
    componentDidMount() {
      this.handleTimePeriod();
+     alert('Under construction')
     }
 
     deleteLead(i) {
