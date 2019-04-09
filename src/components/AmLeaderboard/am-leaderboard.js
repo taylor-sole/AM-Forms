@@ -59,7 +59,8 @@ class AmDashboard extends Component {
           <div id="am-leaderboard-section">
             <div className="leaderboard-title-dropdown-contain">
             <p>Leaderboard</p>
-            <p>Total: {}</p>
+            <br />
+            <p>Total: <strong>{this.props.totalLeads}</strong></p>
               <select onChange={this.sortLeaderboard}>
                 <option selected disabled>Sort by</option>
                 <option value='desc'>Most to least</option>

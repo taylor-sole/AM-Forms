@@ -99,7 +99,9 @@ class AmManagement extends Component {
         lastWeekEnd: prevSunday
       })
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-      console.log(res)
+      this.setState({
+        totalLeads: res.length
+      })
       this.filterLeadsByAmName(res);
       this.handleAmSelection();
     });
