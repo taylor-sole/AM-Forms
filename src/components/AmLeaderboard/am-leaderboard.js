@@ -59,8 +59,6 @@ class AmDashboard extends Component {
           <div id="am-leaderboard-section">
             <div className="leaderboard-title-dropdown-contain">
             <p>Leaderboard</p>
-            <br />
-            <p>Total: {this.props.totalLeads}</p>
               <select onChange={this.sortLeaderboard}>
                 <option selected disabled>Sort by</option>
                 <option value='desc'>Most to least</option>
@@ -68,6 +66,7 @@ class AmDashboard extends Component {
                 <option value='alphabetical'>Alphabetical</option>
               </select>
             </div>
+            <p>Total: {this.props.totalLeads}</p>
             <ul className="am-leaderboard-list">
             <table className="leads-list">
               {allLeads}
