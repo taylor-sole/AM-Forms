@@ -76,12 +76,19 @@ class AmManagement extends Component {
         })
       }
     } else {
-      await this.setState({
-        leadsPeriodStartDate: prevMonday,
-        leadsPeriodEndDate: today,
-        todaysDate: today
-      })
-    }
+        if (selectedTime === 'current week') {
+          await this.setState({
+            leadsPeriodStartDate: prevMonday,
+            leadsPeriodEndDate: today,
+            todaysDate: today
+          })
+        } else {
+          await this.setState({
+            leadsPeriodStartDate: last7DaysStart,
+            leadsPeriodEndDate: yesterday
+          })
+        }
+      }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
     });
@@ -89,7 +96,6 @@ class AmManagement extends Component {
 
    componentDidMount() {
      this.handleTimePeriod();
-     alert('Under construction')
     }
 
     deleteLead(i) {
