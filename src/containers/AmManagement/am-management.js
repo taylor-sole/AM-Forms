@@ -18,7 +18,8 @@ class AmManagement extends Component {
       lastWeekStart: null,
       lastWeekEnd: null,
       todaysDate: null,
-      viewReportFor: 'Overall'
+      viewReportFor: 'Overall',
+      totalLeads: null
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
   }
@@ -98,7 +99,9 @@ class AmManagement extends Component {
         lastWeekEnd: prevSunday
       })
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+      console.log(res)
       this.filterLeadsByAmName(res);
+      this.handleAmSelection();
     });
   }
 
