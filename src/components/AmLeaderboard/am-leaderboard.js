@@ -16,7 +16,7 @@ class AmDashboard extends Component {
   }
 
   sortLeaderboard(event) {
-    console.log(this.props.timePeriodSelected)
+    console.log(event.target.value)
     const sortBy = event.target.value;
     let listToSort = this.props.leadsByAm.slice(0);
     if (sortBy === 'desc') {
