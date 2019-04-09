@@ -161,11 +161,11 @@ class AmManagement extends Component {
                 <select onChange={(e) => {
                   this.handleTimePeriod(e.target.value);
                 }}>
-                  <option value="last week">
-                    {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
-                  </option>
                   <option selected value="current week">
                     {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
+                  </option>
+                  <option value="last week">
+                    {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
                   </option>
                 </select>
             </div>
