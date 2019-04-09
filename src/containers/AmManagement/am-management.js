@@ -15,6 +15,8 @@ class AmManagement extends Component {
       leadsByAm: null,
       leadsPeriodStartDate: null,
       leadsPeriodEndDate: null,
+      lastWeekStart: null,
+      lastWeekEnd: null,
       todaysDate: null,
       viewReportFor: 'Overall'
     }
@@ -91,6 +93,10 @@ class AmManagement extends Component {
           })
         }
       }
+      this.setState({
+        lastWeekStart: lastWeekStart,
+        lastWeekEnd: prevSunday
+      })
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.filterLeadsByAmName(res);
     });
@@ -165,7 +171,7 @@ class AmManagement extends Component {
                     {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
                   </option>
                   <option value="last week">
-                    {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
+                    {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
                   </option>
                 </select>
             </div>
