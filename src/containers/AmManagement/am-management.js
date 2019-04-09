@@ -82,9 +82,9 @@ class AmManagement extends Component {
         todaysDate: today
       })
     }
-    await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-      this.filterLeadsByAmName(res);
-    });
+    // await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+    //   this.filterLeadsByAmName(res);
+    // });
   }
 
    componentDidMount() {
@@ -149,12 +149,6 @@ class AmManagement extends Component {
             </div>
             <div className="item-2">
               <p>For the week of: </p>
-              {
-                new Date().getDay() !== 1 ?
-                <div>
-                  {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
-                </div>
-                :
                 <select onChange={(e) => {
                   this.handleTimePeriod(e.target.value);
                 }}>
@@ -165,7 +159,6 @@ class AmManagement extends Component {
                     {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
                   </option>
                 </select>
-              }
             </div>
           </div>
         {
