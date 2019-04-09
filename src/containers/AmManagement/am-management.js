@@ -19,7 +19,8 @@ class AmManagement extends Component {
       lastWeekEnd: null,
       todaysDate: null,
       viewReportFor: 'Overall',
-      totalLeads: null
+      totalLeads: null,
+      timePeriodSelected: 'current week'
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
   }
@@ -170,6 +171,9 @@ class AmManagement extends Component {
             <div className="item-2">
               <p>For the week of: </p>
                 <select onChange={(e) => {
+                  this.setState({
+                    timePeriodSelected: e.target.value
+                  })
                   this.handleTimePeriod(e.target.value);
                 }}>
                   <option selected value="current week">
