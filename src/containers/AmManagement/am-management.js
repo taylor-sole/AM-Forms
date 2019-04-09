@@ -82,9 +82,9 @@ class AmManagement extends Component {
         todaysDate: today
       })
     }
-    // await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-    //   this.filterLeadsByAmName(res);
-    // });
+    await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+      this.filterLeadsByAmName(res);
+    });
   }
 
    componentDidMount() {
