@@ -58,13 +58,13 @@ class AmManagement extends Component {
    async handleTimePeriod(selectedTime) {
     const date = await new Date();
     const dayOfWeek = await date.getDay();
-    console.log(dayOfWeek);
     const today = await date.setDate(date.getDate());
     const last7DaysStart = await moment().startOf('day').subtract(1,'week');
     const lastWeekStart = await moment().startOf('day').subtract((dayOfWeek),'week');
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
+    console.log(lastWeekStart);
     if (dayOfWeek === 1) {
       if (selectedTime === 'current week') {
         await this.setState({
