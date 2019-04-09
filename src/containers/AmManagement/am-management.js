@@ -164,7 +164,7 @@ class AmManagement extends Component {
                   <option value="last week">
                     {moment(this.state.leadsPeriodStartDate).format('ddd MM/DD/YYYY')} - {moment(this.state.leadsPeriodEndDate).format('ddd MM/DD/YYYY')}
                   </option>
-                  <option defaultValue value="current week">
+                  <option selected value="current week">
                     {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
                   </option>
                 </select>
