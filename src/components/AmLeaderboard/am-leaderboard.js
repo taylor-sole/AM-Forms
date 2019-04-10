@@ -64,7 +64,8 @@ class AmDashboard extends Component {
           <div id="am-leaderboard-section">
             <div className="leaderboard-title-dropdown-contain">
             <p>Leaderboard</p>
-              <select onChange={this.sortLeaderboard}>
+              <select onChange={(e) => {
+                this.sortLeaderboard(e)}}>
                 <option selected disabled>Sort by</option>
                 <option value='desc'>Most to least</option>
                 <option value='asc'>Least to most</option>
