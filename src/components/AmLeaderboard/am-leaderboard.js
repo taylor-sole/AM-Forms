@@ -10,21 +10,21 @@ class AmDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      leaderboardList: null,
-      sortBy: 'alphabetical'
+      leaderboardList: null
     }
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
   }
 
   sortLeaderboard(event) {
-    // const sortBy = event.target.value;
+    console.log(this.props.leadsByAm)
+    const sortBy = event.target.value;
     let listToSort = this.props.leadsByAm.slice(0);
-    if (this.state.sortBy === 'desc') {
+    if (sortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
       this.setState({
         leaderboardList: listToSort
       })
-    } else if (this.state.sortBy === 'asc') {
+    } else if (sortBy === 'asc') {
       listToSort.sort(function(a, b){return a.total-b.total});
       this.setState({
         leaderboardList: listToSort
@@ -37,7 +37,7 @@ class AmDashboard extends Component {
   }
 
   componentDidUpdate() {
-    this.sortLeaderboard(this.state.sortBy);
+    console.log(this.props.leadsByAm)
   }
 
   render() {
@@ -64,8 +64,7 @@ class AmDashboard extends Component {
           <div id="am-leaderboard-section">
             <div className="leaderboard-title-dropdown-contain">
             <p>Leaderboard</p>
-              <select onChange={(e) => {
-                this.sortLeaderboard(e)}}>
+              <select onChange={this.sortLeaderboard}>
                 <option selected disabled>Sort by</option>
                 <option value='desc'>Most to least</option>
                 <option value='asc'>Least to most</option>
