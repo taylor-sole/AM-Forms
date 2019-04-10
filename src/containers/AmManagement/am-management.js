@@ -183,9 +183,6 @@ class AmManagement extends Component {
 
     let allLeads;
     let leadsList;
-    if (!this.props.leadsByAm) {
-      return (<Loading />)
-    } else {
       if (this.props.leadsByAm) {
         if (this.state.leaderboardList === null) {
           leadsList = this.props.leadsByAm
