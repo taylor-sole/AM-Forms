@@ -41,7 +41,7 @@ class AmDashboard extends Component {
 
   componentDidUpdate() {
     if (this.props.leadsByAm) {
-      // this.sortLeaderboard();
+      console.log(this.state.sortByValue)
     }
   }
 
