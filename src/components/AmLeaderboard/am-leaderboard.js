@@ -17,14 +17,14 @@ class AmDashboard extends Component {
   }
 
   sortLeaderboard(event) {
-    const sortBy = event.target.value;
+    // const sortBy = event.target.value;
     let listToSort = this.props.leadsByAm.slice(0);
-    if (sortBy === 'desc') {
+    if (this.state.sortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
       this.setState({
         leaderboardList: listToSort
       })
-    } else if (sortBy === 'asc') {
+    } else if (this.state.sortBy === 'asc') {
       listToSort.sort(function(a, b){return a.total-b.total});
       this.setState({
         leaderboardList: listToSort
