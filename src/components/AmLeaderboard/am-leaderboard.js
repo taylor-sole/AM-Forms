@@ -40,8 +40,23 @@ class AmDashboard extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.leadsByAm) {
-      console.log(this.state.sortByValue)
+    if (this.props.leadsByAm && this.state.sortByValue !== null) {
+      let listToSort = this.props.leadsByAm.slice(0);
+      if (this.state.sortBy === 'desc') {
+        listToSort.sort(function(a, b){return b.total-a.total});
+        this.setState({
+          leaderboardList: listToSort
+        })
+      } else if (this.state.sortBy === 'asc') {
+        listToSort.sort(function(a, b){return a.total-b.total});
+        this.setState({
+          leaderboardList: listToSort
+        })
+      } else {
+        this.setState({
+          leaderboardList: this.props.leadsByAm
+        })
+      }
     }
   }
 
