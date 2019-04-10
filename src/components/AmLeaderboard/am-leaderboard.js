@@ -10,13 +10,16 @@ class AmDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      leaderboardList: null
+      leaderboardList: null,
+      sortBy: 'alphabetical'
     }
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
   }
 
   sortLeaderboard(event) {
-    console.log(this.props.leadsByAm)
+    this.setState({
+      sortBy: event.target.value
+    })
     const sortBy = event.target.value;
     let listToSort = this.props.leadsByAm.slice(0);
     if (sortBy === 'desc') {
@@ -34,6 +37,10 @@ class AmDashboard extends Component {
         leaderboardList: this.props.leadsByAm
       })
     }
+  }
+
+  componentDidUpdate() {
+    this.sortLeaderboard(this.state.sortBy);
   }
 
   render() {
