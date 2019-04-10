@@ -11,7 +11,7 @@ class AmDashboard extends Component {
     super(props);
     this.state = {
       leaderboardList: null,
-      sortByValue: null
+      sortByValue: 'alphabetical'
     }
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
   }
