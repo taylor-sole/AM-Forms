@@ -185,7 +185,7 @@ class AmManagement extends Component {
     let leadsList;
       if (this.state.leadsByAm) {
         if (this.state.leaderboardList === null) {
-          leadsList = this.props.leadsByAm
+          leadsList = this.state.leadsByAm
         } else {
           leadsList = this.state.leaderboardList
         }
