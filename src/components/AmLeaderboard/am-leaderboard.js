@@ -11,27 +11,36 @@ class AmDashboard extends Component {
     super(props);
     this.state = {
       leaderboardList: null,
-      sortByValue: null
+      sortByValue: 'alphabetical'
     }
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
   }
 
   sortLeaderboard(event) {
-    const sortBy = event.target.value;
-    this.setState({
-      sortByValue: event.target.value
-    })
+    let sortBy;
+    if (event.target.value) {
+      this.setState({
+        sortByValue: event.target.value
+      })
+      sortBy = event.target.value;
+    } else {
+      sortBy = this.state.sortByValue.slice(0);
+    }
     let listToSort = this.props.leadsByAm.slice(0);
     if (sortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
-      this.setState({
-        leaderboardList: listToSort
-      })
+      if (sortBy !== 'desc') {
+        this.setState({
+          leaderboardList: listToSort
+        })
+      }
     } else if (sortBy === 'asc') {
       listToSort.sort(function(a, b){return a.total-b.total});
-      this.setState({
-        leaderboardList: listToSort
-      })
+      if (sortBy !== 'asc') {
+        this.setState({
+          leaderboardList: listToSort
+        })
+      }
     } else {
       this.setState({
         leaderboardList: this.props.leadsByAm
@@ -41,22 +50,7 @@ class AmDashboard extends Component {
 
   componentDidUpdate() {
     if (this.props.leadsByAm && this.state.sortByValue !== null) {
-      let listToSort = this.props.leadsByAm.slice(0);
-      if (this.state.sortBy === 'desc') {
-        listToSort.sort(function(a, b){return b.total-a.total});
-        this.setState({
-          leaderboardList: listToSort
-        })
-      } else if (this.state.sortBy === 'asc') {
-        listToSort.sort(function(a, b){return a.total-b.total});
-        this.setState({
-          leaderboardList: listToSort
-        })
-      } else {
-        this.setState({
-          leaderboardList: this.props.leadsByAm
-        })
-      }
+      console.log(this.state.sortByValue)
     }
   }
 
