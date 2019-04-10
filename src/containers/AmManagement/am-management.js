@@ -20,9 +20,35 @@ class AmManagement extends Component {
       todaysDate: null,
       viewReportFor: 'Overall',
       totalLeads: null,
-      timePeriodSelected: 'current week'
+      timePeriodSelected: 'current week',
+      leaderboardList: null,
+      sortByValue: null
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
+    this.sortLeaderboard = this.sortLeaderboard.bind(this);
+  }
+
+  sortLeaderboard(event) {
+    const sortBy = event.target.value;
+    this.setState({
+      sortByValue: event.target.value
+    })
+    let listToSort = this.state.leadsByAm.slice(0);
+    if (sortBy === 'desc') {
+      listToSort.sort(function(a, b){return b.total-a.total});
+      this.setState({
+        leaderboardList: listToSort
+      })
+    } else if (sortBy === 'asc') {
+      listToSort.sort(function(a, b){return a.total-b.total});
+      this.setState({
+        leaderboardList: listToSort
+      })
+    } else {
+      this.setState({
+        leaderboardList: this.state.leadsByAm
+      })
+    }
   }
 
   filterLeadsByAmName(res) {
@@ -154,6 +180,26 @@ class AmManagement extends Component {
         )
       })
     }
+
+    let allLeads;
+    let leadsList;
+    if (!this.props.leadsByAm) {
+      return (<Loading />)
+    } else {
+      if (this.props.leadsByAm) {
+        if (this.state.leaderboardList === null) {
+          leadsList = this.props.leadsByAm
+        } else {
+          leadsList = this.state.leaderboardList
+        }
+        allLeads = leadsList.map((accountManager, i) => (
+        <tr>
+          <td>{accountManager.name}</td>
+          <td>{accountManager.total}</td> 
+        </tr>
+        ))
+      }
+
     return (
       <section className="am-management-dashboard-container">
         <ManagementNav {...this.props} />
@@ -186,7 +232,24 @@ class AmManagement extends Component {
           </div>
         {
           this.state.viewReportFor === 'Overall' ?
-          <AmManagementOverview {...this.state} />
+          // <AmManagementOverview {...this.state} />
+          <div id="am-leaderboard-section">
+          <div className="leaderboard-title-dropdown-contain">
+          <p>Leaderboard</p>
+            <select onChange={this.sortLeaderboard}>
+              <option selected disabled>Sort by</option>
+              <option value='desc'>Most to least</option>
+              <option value='asc'>Least to most</option>
+              <option value='alphabetical'>Alphabetical</option>
+            </select>
+          </div>
+          <ul className="am-leaderboard-list">
+          <p><strong>Total: {this.state.totalLeads}</strong></p>
+          <table className="leads-list">
+            {allLeads}
+          </table>
+          </ul>
+        </div>
         :
         <table className="leads-list">
           <tr>

@@ -39,12 +39,6 @@ class AmDashboard extends Component {
     }
   }
 
-  componentDidUpdate() {
-    if (this.props.leadsByAm && this.state.sortByValue !== null) {
-      console.log(this.state.sortByValue)
-    }
-  }
-
   render() {
     let allLeads;
     let leadsList;
