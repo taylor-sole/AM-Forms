@@ -17,10 +17,15 @@ class AmDashboard extends Component {
   }
 
   sortLeaderboard(event) {
-    const sortBy = event.target.value;
-    this.setState({
-      sortByValue: event.target.value
-    })
+    let sortBy;
+    if (event) {
+      sortBy = event.target.value;
+      this.setState({
+        sortByValue: event.target.value
+      })
+    } else {
+      sortBy = this.state.sortByValue.slice(0)
+    }
     let listToSort = this.props.leadsByAm.slice(0);
     if (sortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
@@ -41,7 +46,7 @@ class AmDashboard extends Component {
 
   componentDidUpdate() {
     if (this.props.leadsByAm) {
-      console.log(this.props.leadsByAm)
+      this.sortLeaderboard();
     }
   }
 
