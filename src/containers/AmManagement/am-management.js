@@ -185,9 +185,9 @@ class AmManagement extends Component {
     let leadsList;
       if (this.state.leadsByAm) {
         if (this.state.leaderboardList === null) {
-          leadsList = this.state.leadsByAm
+          leadsList = this.state.leadsByAm.slice(0)
         } else {
-          leadsList = this.state.leaderboardList
+          leadsList = this.state.leaderboardList.slice(0)
         }
         allLeads = leadsList.map((accountManager, i) => (
         <tr>
