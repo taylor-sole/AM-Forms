@@ -50,7 +50,27 @@ class AmDashboard extends Component {
 
   componentDidUpdate() {
     if (this.props.leadsByAm && this.state.sortByValue !== null) {
-      this.sortLeaderboard();
+    const sortBy = this.state.sortByValue.slice(0);
+    let listToSort = this.props.leadsByAm.slice(0);
+    if (sortBy === 'desc') {
+      listToSort.sort(function(a, b){return b.total-a.total});
+      if (sortBy !== 'desc') {
+        this.setState({
+          leaderboardList: listToSort
+        })
+      }
+    } else if (sortBy === 'asc') {
+      listToSort.sort(function(a, b){return a.total-b.total});
+      if (sortBy !== 'asc') {
+        this.setState({
+          leaderboardList: listToSort
+        })
+      }
+    } else {
+      this.setState({
+        leaderboardList: this.props.leadsByAm
+      })
+    }
     }
   }
 
