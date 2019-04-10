@@ -18,7 +18,7 @@ class AmDashboard extends Component {
 
   sortLeaderboard(event) {
     let sortBy;
-    if (event.target.value) {
+    if (event) {
       this.setState({
         sortByValue: event.target.value
       })
