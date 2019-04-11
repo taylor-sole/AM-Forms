@@ -62,7 +62,7 @@ class AmManagement extends Component {
       array_elements.sort(function(a, b) {
         return a.am_name - b.am_name;
       });
-        
+       
       let current = null;
       let cnt = 0;
       let amLeadList = [];
@@ -182,7 +182,7 @@ class AmManagement extends Component {
             <td>{item.cardholder_name}</td>
             <td>{item.account_number}</td>
             <td>{moment(item.time_added).format('ddd MM/DD/YYYY')}</td>
-            {/* <td><button onClick={() => this.deleteLead(i)}>Delete</button></td> */}
+            <td><button onClick={() => this.deleteLead(i)}>Delete</button></td>
           </tr>
         )
       })
