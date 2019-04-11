@@ -26,20 +26,24 @@ class AmManagement extends Component {
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
+    this.handleSortByValue = this.handleSortByValue.bind(this);
   }
 
-  sortLeaderboard(event) {
-    const sortBy = event.target.value;
-    this.setState({
+  async handleSortByValue(event) {
+    await this.setState({
       sortByValue: event.target.value
     })
+    await this.sortLeaderboard(this.state.sortByValue);
+  }
+
+  sortLeaderboard(valueToSortBy) {
     let listToSort = this.state.leadsByAm.slice(0);
-    if (sortBy === 'desc') {
+    if (valueToSortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
       this.setState({
         leaderboardList: listToSort
       })
-    } else if (sortBy === 'asc') {
+    } else if (valueToSortBy === 'asc') {
       listToSort.sort(function(a, b){return a.total-b.total});
       this.setState({
         leaderboardList: listToSort
@@ -131,6 +135,9 @@ class AmManagement extends Component {
       })
       this.filterLeadsByAmName(res);
     });
+    if (this.state.sortByValue !== null) {
+      await this.sortLeaderboard(this.state.sortByValue);
+    }
   }
 
    componentDidMount() {
@@ -189,7 +196,7 @@ class AmManagement extends Component {
         } else {
           leadsList = this.state.leaderboardList.slice(0)
         }
-        allLeads = this.state.leadsByAm.map((accountManager, i) => (
+        allLeads = leadsList.map((accountManager, i) => (
         <tr>
           <td>{accountManager.name}</td>
           <td>{accountManager.total}</td> 
@@ -233,7 +240,7 @@ class AmManagement extends Component {
           <div id="am-leaderboard-section">
           <div className="leaderboard-title-dropdown-contain">
           <p>Leaderboard</p>
-            <select onChange={this.sortLeaderboard}>
+            <select onChange={this.handleSortByValue}>
               <option selected disabled>Sort by</option>
               <option value='desc'>Most to least</option>
               <option value='asc'>Least to most</option>
