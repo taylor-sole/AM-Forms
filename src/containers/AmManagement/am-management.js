@@ -189,7 +189,7 @@ class AmManagement extends Component {
         } else {
           leadsList = this.state.leaderboardList.slice(0)
         }
-        allLeads = leadsList.map((accountManager, i) => (
+        allLeads = this.state.leadsByAm.map((accountManager, i) => (
         <tr>
           <td>{accountManager.name}</td>
           <td>{accountManager.total}</td> 
