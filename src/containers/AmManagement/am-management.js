@@ -230,7 +230,7 @@ class AmManagement extends Component {
                 <select onChange={(e) => {
                   this.setState({
                     timePeriodSelected: e.target.value,
-                    viewReportFor: 'Overall'
+                    amSelectionName: 'Overall'
                   })
                   this.handleTimePeriod(e.target.value);
                 }}>
