@@ -99,16 +99,16 @@ class AmManagement extends Component {
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
     if (dayOfWeek === 1) {
-      if (selectedTime === 'current week') {
+      if (selectedTime === 'last week') {
+        await this.setState({
+          leadsPeriodStartDate: last7DaysStart,
+          leadsPeriodEndDate: yesterday
+        })
+      } else {
         await this.setState({
           leadsPeriodStartDate: today,
           leadsPeriodEndDate: today,
           todaysDate: today
-        })
-      } else {
-        await this.setState({
-          leadsPeriodStartDate: last7DaysStart,
-          leadsPeriodEndDate: yesterday
         })
       }
     } else {
@@ -225,7 +225,7 @@ class AmManagement extends Component {
                   })
                   this.handleTimePeriod(e.target.value);
                 }}>
-                  <option selected value="current week">
+                  <option value="current week">
                     {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
                   </option>
                   <option value="last week">
