@@ -157,6 +157,7 @@ class AmManagement extends Component {
     }
 
   handleAmSelection(event) {
+    console.log(event.target.value)
     if (event.target.value === 'Overall') {
       this.setState({
         viewReportFor: event.target.value
