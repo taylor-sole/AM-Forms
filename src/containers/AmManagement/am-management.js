@@ -97,8 +97,9 @@ class AmManagement extends Component {
     const lastWeekStart = await moment().startOf('day').subtract((6 + dayOfWeek),'day');
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
-    let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
+    let prevSunday;
     if (dayOfWeek === 1) {
+      prevSunday = await date.setDate(date.getDate() - 1);
       if (selectedTime === 'last week') {
         await this.setState({
           leadsPeriodStartDate: last7DaysStart,
@@ -112,6 +113,7 @@ class AmManagement extends Component {
         })
       }
     } else {
+        prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
         if (selectedTime === 'last week') {
           await this.setState({
             leadsPeriodStartDate: lastWeekStart,
