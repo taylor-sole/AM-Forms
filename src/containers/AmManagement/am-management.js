@@ -18,7 +18,7 @@ class AmManagement extends Component {
       lastWeekStart: null,
       lastWeekEnd: null,
       todaysDate: null,
-      viewReportFor: 'Overall',
+      viewReportFor: [{name: 'Overall'}],
       totalLeads: null,
       timePeriodSelected: 'current week',
       leaderboardList: null,
@@ -159,7 +159,7 @@ class AmManagement extends Component {
   handleAmSelection(event) {
     if (event.target.value === 'Overall') {
       this.setState({
-        viewReportFor: event.target.value
+        viewReportFor: [{name: 'Overall'}]
       })
     } else {
       const leadsArrCopy = this.state.leadsByAm.slice(0);
@@ -218,7 +218,7 @@ class AmManagement extends Component {
           <div className="viewing-options-wrapper">
             <div className="item-1">
               <p>Viewing:</p>
-              <select value={this.state.viewReportFor} onChange={this.handleAmSelection}>
+              <select value={this.state.viewReportFor[0].name} onChange={this.handleAmSelection}>
                 <option>Overall</option>
                 {amList}
               </select>
