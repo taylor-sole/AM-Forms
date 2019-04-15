@@ -218,7 +218,11 @@ class AmManagement extends Component {
           <div className="viewing-options-wrapper">
             <div className="item-1">
               <p>Viewing:</p>
-              <select value={this.state.viewReportFor} onChange={this.handleAmSelection}>
+              <select value={() => { if (this.state.viewReportFor === 'Overall') {
+                return this.state.viewReportFor;
+              } else {
+                return this.state.viewReportFor[0].name;
+              }}} onChange={this.handleAmSelection}>
                 <option>Overall</option>
                 {amList}
               </select>
