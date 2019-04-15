@@ -219,7 +219,7 @@ class AmManagement extends Component {
             <div className="item-1">
               <p>Viewing:</p>
               <select value={this.state.viewReportFor} onChange={this.handleAmSelection}>
-                <option selected>Overall</option>
+                <option>Overall</option>
                 {amList}
               </select>
             </div>
