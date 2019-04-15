@@ -19,7 +19,7 @@ class AmManagement extends Component {
       lastWeekEnd: null,
       todaysDate: null,
       viewReportFor: null,
-      amSelectionName: [{name: 'Overall'}],
+      amSelectionName: 'Overall',
       totalLeads: null,
       timePeriodSelected: 'current week',
       leaderboardList: null,
