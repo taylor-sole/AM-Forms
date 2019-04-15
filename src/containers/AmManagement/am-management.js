@@ -226,7 +226,8 @@ class AmManagement extends Component {
               <p>For the week of: </p>
                 <select onChange={(e) => {
                   this.setState({
-                    timePeriodSelected: e.target.value
+                    timePeriodSelected: e.target.value,
+                    viewReportFor: 'Overall'
                   })
                   this.handleTimePeriod(e.target.value);
                 }}>
