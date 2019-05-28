@@ -138,13 +138,6 @@ class AmManagement extends Component {
         this.setState({
           lastWeekStart: lastWeekStart
         })
-        await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-          this.setState({
-            totalLeads: res.length
-          })
-          this.filterLeadsByAmName(res);
-        });
-        await this.sortLeaderboard(this.state.sortByValue);
     } else if (this.state.weekOrMonth === 'month') {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
@@ -154,14 +147,14 @@ class AmManagement extends Component {
           leadsPeriodEndDate: currentMonthEnd
         })
       }
-      await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-        this.setState({
-          totalLeads: res.length
-        })
-        this.filterLeadsByAmName(res);
-      });
-      await this.sortLeaderboard(this.state.sortByValue);
     }
+    await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+      this.setState({
+        totalLeads: res.length
+      })
+      this.filterLeadsByAmName(res);
+    });
+    await this.sortLeaderboard(this.state.sortByValue);
   }
 
    componentDidMount() {
@@ -249,6 +242,7 @@ class AmManagement extends Component {
                   this.setState({
                     weekOrMonth: e.target.value,
                   })
+                  this.handleTimePeriod(e.target.value);
                 }}>
                   <option value='week'>week</option>
                   <option value='month'>month</option>
