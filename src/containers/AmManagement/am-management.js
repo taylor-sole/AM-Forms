@@ -99,8 +99,6 @@ class AmManagement extends Component {
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
-    const firstWeekStart = await moment().startOf('month').add(7,'day');
-    const firstWeekEnd = await moment().endOf('month').add(14,'day');
 
     if (dayOfWeek === 1) {
       if (selectedTime === 'last week') {
@@ -245,7 +243,7 @@ class AmManagement extends Component {
                     {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
                   </option>
                   <option value="second week of month">
-                    {moment().startOf('month').add(7,'day').format('ddd MM/DD/YYYY')} - {moment(this.state.firstWeekEnd).format('ddd MM/DD/YYYY')}
+                    {moment().startOf('month').add(7,'day').format('ddd MM/DD/YYYY')} - {moment().endOf('month').add(14,'day').format('ddd MM/DD/YYYY')}
                   </option>
                   {/* <option value="first week of month">
                     {moment().startOf('month')} - {moment().endOf('month').add(7,'day')}
