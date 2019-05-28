@@ -23,7 +23,7 @@ class AmManagement extends Component {
       totalLeads: null,
       timePeriodSelected: 'current week',
       leaderboardList: null,
-      sortByValue: null,
+      sortByValue: 'alphabetical',
       weekOrMonth: 'week'
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
@@ -141,7 +141,7 @@ class AmManagement extends Component {
     } else if (this.state.weekOrMonth === 'month') {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
-      if (selectedTime === currentMonthStart) {
+      if (selectedTime === moment().format('MMMM')) {
         await this.setState({
           leadsPeriodStartDate: currentMonthStart,
           leadsPeriodEndDate: currentMonthEnd
@@ -154,9 +154,7 @@ class AmManagement extends Component {
       })
       this.filterLeadsByAmName(res);
     });
-    if (this.state.sortByValue !== null) {
-      await this.sortLeaderboard(this.state.sortByValue);
-    }
+    await this.sortLeaderboard(this.state.sortByValue);
   }
 
    componentDidMount() {
