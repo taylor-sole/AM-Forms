@@ -227,28 +227,53 @@ class AmManagement extends Component {
               </select>
             </div>
             <div className="item-2">
-              <p>For the week of: </p>
+              <p>For the 
                 <select onChange={(e) => {
                   this.setState({
-                    timePeriodSelected: e.target.value,
-                    viewReportFor: 'Overall',
-                    amSelectionName: 'Overall'
+                    weekOrMonth: e.target.value,
                   })
-                  this.handleTimePeriod(e.target.value);
                 }}>
-                  <option value="current week">
-                    {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
-                  </option>
-                  <option value="last week">
-                    {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
-                  </option>
-                  <option value="second week of month">
-                    {moment().startOf('month').add(7,'day').format('ddd MM/DD/YYYY')} - {moment().endOf('month').add(14,'day').format('ddd MM/DD/YYYY')}
-                  </option>
-                  {/* <option value="first week of month">
-                    {moment().startOf('month')} - {moment().endOf('month').add(7,'day')}
-                  </option> */}
+                  <option value='week'>week</option>
+                  <option value='month'>month</option>
                 </select>
+                 of: </p>
+                 {
+                   this.state.weekOrMonth === 'month' ?
+                    <select onChange={(e) => {
+                      this.setState({
+                        timePeriodSelected: e.target.value,
+                        viewReportFor: 'Overall',
+                        amSelectionName: 'Overall'
+                      })
+                      this.handleTimePeriod(e.target.value);
+                      }}>
+                        <option value="May">
+                          May
+                        </option>
+                        <option value="April">
+                          April
+                        </option>
+                        <option value="March">
+                          March
+                        </option>
+                      </select>
+                   :
+                    <select onChange={(e) => {
+                      this.setState({
+                        timePeriodSelected: e.target.value,
+                        viewReportFor: 'Overall',
+                        amSelectionName: 'Overall'
+                      })
+                      this.handleTimePeriod(e.target.value);
+                      }}>
+                        <option value="current week">
+                          {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
+                        </option>
+                        <option value="last week">
+                          {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
+                        </option>
+                      </select>
+                 }
             </div>
           </div>
         {
