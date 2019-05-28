@@ -143,11 +143,17 @@ class AmManagement extends Component {
 
       const lastMonthStart = moment().startOf('month').subtract(1, 'month');
       const lastMonthEnd = moment().endOf('month').subtract(1, 'month');
-
-      await this.setState({
-        leadsPeriodStartDate: currentMonthStart,
-        leadsPeriodEndDate: currentMonthEnd
-      })
+      if (selectedTime === moment().subtract(1,'month').format('MMMM')) {
+        await this.setState({
+          leadsPeriodStartDate: lastMonthStart,
+          leadsPeriodEndDate: lastMonthEnd
+        })
+      } else {
+        await this.setState({
+          leadsPeriodStartDate: currentMonthStart,
+          leadsPeriodEndDate: currentMonthEnd
+        })
+      }
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.setState({
