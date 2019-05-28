@@ -139,8 +139,15 @@ class AmManagement extends Component {
           lastWeekStart: lastWeekStart
         })
     } else {
+      const currentMonthStart = moment().tz("America/Los_Angeles").startOf('month');
+      const currentMonthEnd = moment().tz("America/Los_Angeles").endOf('month');
+
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
+
+      const lastMonthStart = moment().startOf('month').subtract(1, 'month');
+      const lastMonthEnd = moment().endOf('month').subtract(1, 'month');
+
       await this.setState({
         leadsPeriodStartDate: currentMonthStart,
         leadsPeriodEndDate: currentMonthEnd
