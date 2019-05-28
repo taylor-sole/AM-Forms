@@ -138,7 +138,7 @@ class AmManagement extends Component {
         this.setState({
           lastWeekStart: lastWeekStart
         })
-    } else if (this.state.weekOrMonth === 'month') {
+    } else {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
       if (selectedTime === moment().format('MMMM')) {
@@ -249,13 +249,13 @@ class AmManagement extends Component {
                  of: </p>
                  {
                    this.state.weekOrMonth === 'month' ?
-                    <select onChange={(e) => {
-                      this.setState({
+                    <select onChange={async (e) => {
+                      await this.setState({
                         timePeriodSelected: e.target.value,
                         viewReportFor: 'Overall',
                         amSelectionName: 'Overall'
                       })
-                      this.handleTimePeriod(e.target.value);
+                      await this.handleTimePeriod(e.target.value);
                       }}>
                         <option value={moment().format('MMMM')}>
                           {moment().format('MMMM')}
@@ -268,13 +268,13 @@ class AmManagement extends Component {
                         </option>
                       </select>
                    :
-                    <select onChange={(e) => {
-                      this.setState({
+                    <select onChange={async (e) => {
+                      await this.setState({
                         timePeriodSelected: e.target.value,
                         viewReportFor: 'Overall',
                         amSelectionName: 'Overall'
                       })
-                      this.handleTimePeriod(e.target.value);
+                      await this.handleTimePeriod(e.target.value);
                       }}>
                         <option value="current week">
                           {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
