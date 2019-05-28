@@ -241,7 +241,7 @@ class AmManagement extends Component {
                   <option value="last week">
                     {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
                   </option>
-                  {
+                  {/* {
                     moment().format('D') > '14' ?
                     <div>
                       <option value="second week of month">
@@ -253,7 +253,7 @@ class AmManagement extends Component {
                     </div>
                     :
                     null
-                  }
+                  } */}
   
                 </select>
             </div>
