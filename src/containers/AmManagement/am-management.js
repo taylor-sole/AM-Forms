@@ -138,15 +138,13 @@ class AmManagement extends Component {
         this.setState({
           lastWeekStart: lastWeekStart
         })
-    } else if (this.state.weekOrMonth === 'month') {
+    } else {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
-      if (selectedTime === moment().format('MMMM')) {
-        await this.setState({
-          leadsPeriodStartDate: currentMonthStart,
-          leadsPeriodEndDate: currentMonthEnd
-        })
-      }
+      await this.setState({
+        leadsPeriodStartDate: currentMonthStart,
+        leadsPeriodEndDate: currentMonthEnd
+      })
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.setState({
@@ -241,6 +239,8 @@ class AmManagement extends Component {
                 <select onChange={(e) => {
                   this.setState({
                     weekOrMonth: e.target.value,
+                    viewReportFor: 'Overall',
+                    amSelectionName: 'Overall'
                   })
                   this.handleTimePeriod(e.target.value);
                 }}>
