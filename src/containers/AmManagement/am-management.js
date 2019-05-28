@@ -138,7 +138,14 @@ class AmManagement extends Component {
         this.setState({
           lastWeekStart: lastWeekStart
         })
-    } else {
+        await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+          this.setState({
+            totalLeads: res.length
+          })
+          this.filterLeadsByAmName(res);
+        });
+        await this.sortLeaderboard(this.state.sortByValue);
+    } else if (this.state.weekOrMonth === 'month') {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
       if (selectedTime === moment().format('MMMM')) {
@@ -147,14 +154,14 @@ class AmManagement extends Component {
           leadsPeriodEndDate: currentMonthEnd
         })
       }
+      await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+        this.setState({
+          totalLeads: res.length
+        })
+        this.filterLeadsByAmName(res);
+      });
+      await this.sortLeaderboard(this.state.sortByValue);
     }
-    await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-      this.setState({
-        totalLeads: res.length
-      })
-      this.filterLeadsByAmName(res);
-    });
-    await this.sortLeaderboard(this.state.sortByValue);
   }
 
    componentDidMount() {
@@ -249,13 +256,13 @@ class AmManagement extends Component {
                  of: </p>
                  {
                    this.state.weekOrMonth === 'month' ?
-                    <select onChange={async (e) => {
-                      await this.setState({
+                    <select onChange={(e) => {
+                      this.setState({
                         timePeriodSelected: e.target.value,
                         viewReportFor: 'Overall',
                         amSelectionName: 'Overall'
                       })
-                      await this.handleTimePeriod(e.target.value);
+                      this.handleTimePeriod(e.target.value);
                       }}>
                         <option value={moment().format('MMMM')}>
                           {moment().format('MMMM')}
@@ -268,13 +275,13 @@ class AmManagement extends Component {
                         </option>
                       </select>
                    :
-                    <select onChange={async (e) => {
-                      await this.setState({
+                    <select onChange={(e) => {
+                      this.setState({
                         timePeriodSelected: e.target.value,
                         viewReportFor: 'Overall',
                         amSelectionName: 'Overall'
                       })
-                      await this.handleTimePeriod(e.target.value);
+                      this.handleTimePeriod(e.target.value);
                       }}>
                         <option value="current week">
                           {moment(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7)).format('ddd MM/DD/YYYY')} - {moment(new Date().setDate(new Date().getDate())).format('ddd MM/DD/YYYY')}
