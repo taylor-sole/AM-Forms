@@ -145,8 +145,8 @@ class AmManagement extends Component {
         await this.setState({
           leadsPeriodStartDate: currentMonthStart,
           leadsPeriodEndDate: currentMonthEnd
-        // })
-      }
+        })
+      // }
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
       this.setState({
