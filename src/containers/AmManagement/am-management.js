@@ -4,6 +4,7 @@ import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
+import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 
 class AmManagement extends Component {
 
@@ -288,6 +289,7 @@ class AmManagement extends Component {
           </div>
         {
           this.state.viewReportFor === 'Overall' ?
+          // <AmManagementOverview {...this.state} />
           <div id="am-leaderboard-section">
           <div className="leaderboard-title-dropdown-contain">
           <p>Leaderboard</p>
