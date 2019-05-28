@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/App.css';
 import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
-import moment from 'moment';
-import 'moment-timezone';
+import moment from 'moment-timezone';
 import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 
 class AmManagement extends Component {
