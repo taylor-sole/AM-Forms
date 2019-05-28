@@ -141,11 +141,11 @@ class AmManagement extends Component {
     } else if (this.state.weekOrMonth === 'month') {
       const currentMonthStart = moment().startOf('month');
       const currentMonthEnd = moment().endOf('month');
-      // if (selectedTime === moment().format('MMMM')) {
+      if (selectedTime === moment().format('MMMM')) {
         await this.setState({
           leadsPeriodStartDate: currentMonthStart,
           leadsPeriodEndDate: currentMonthEnd
-        // })
+        })
       }
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
