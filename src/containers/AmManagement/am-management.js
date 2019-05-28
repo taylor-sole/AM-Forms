@@ -241,14 +241,6 @@ class AmManagement extends Component {
                   <option value="last week">
                     {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
                   </option>
-
-                      {/* <option value="second week of month">
-                        {moment().startOf('month').add(7,'day')} + {moment().endOf('month').add(14,'day')}
-                      </option>
-                      <option value="first week of month">
-                        {moment().startOf('month')} + {moment().endOf('month').add(7,'day')}
-                      </option> */}
-
                 </select>
             </div>
           </div>
