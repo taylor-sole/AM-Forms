@@ -4,6 +4,7 @@ import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment';
 import 'moment-timezone';
+import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 
 class AmManagement extends Component {
 
@@ -95,7 +96,6 @@ class AmManagement extends Component {
     const today = await date.setDate(date.getDate());
     const last7DaysStart = await moment().startOf('day').subtract(1,'week');
     const lastWeekStart = await moment().startOf('day').subtract((6 + dayOfWeek),'day');
-    const firstWeekOfMonth = await moment().startOf('month');
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
@@ -146,7 +146,7 @@ class AmManagement extends Component {
     }
   }
 
-    componentDidMount() {
+   componentDidMount() {
      this.handleTimePeriod();
     }
 
@@ -246,6 +246,7 @@ class AmManagement extends Component {
           </div>
         {
           this.state.viewReportFor === 'Overall' ?
+          // <AmManagementOverview {...this.state} />
           <div id="am-leaderboard-section">
           <div className="leaderboard-title-dropdown-contain">
           <p>Leaderboard</p>
