@@ -23,7 +23,7 @@ class AmManagement extends Component {
       totalLeads: null,
       timePeriodSelected: 'current week',
       leaderboardList: null,
-      sortByValue: null
+      sortByValue: null,
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
@@ -99,6 +99,9 @@ class AmManagement extends Component {
     const yesterday = await date.setDate(date.getDate() - 1);
     let prevMonday = await date.setDate(date.getDate() - (date.getDay() + 6) % 7);
     let prevSunday = await date.setDate(date.getDate() - (date.getDay() + 7) % 7);
+    const firstWeekStart = await moment().startOf('month').add(7,'day');
+    const firstWeekEnd = await moment().endOf('month').add(14,'day');
+
     if (dayOfWeek === 1) {
       if (selectedTime === 'last week') {
         await this.setState({
@@ -241,6 +244,12 @@ class AmManagement extends Component {
                   <option value="last week">
                     {moment(this.state.lastWeekStart).format('ddd MM/DD/YYYY')} - {moment(this.state.lastWeekEnd).format('ddd MM/DD/YYYY')}
                   </option>
+                  <option value="second week of month">
+                    {moment(this.state.firstWeekStart).format('ddd MM/DD/YYYY')} + {moment(this.state.firstWeekEnd).format('ddd MM/DD/YYYY')}
+                  </option>
+                  {/* <option value="first week of month">
+                    {moment().startOf('month')} + {moment().endOf('month').add(7,'day')}
+                  </option> */}
                 </select>
             </div>
           </div>
