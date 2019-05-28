@@ -147,14 +147,14 @@ class AmManagement extends Component {
           leadsPeriodEndDate: currentMonthEnd
         })
       }
+      await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+        this.setState({
+          totalLeads: res.length
+        })
+        this.filterLeadsByAmName(res);
+      });
+      await this.sortLeaderboard(this.state.sortByValue);
     }
-    await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-      this.setState({
-        totalLeads: res.length
-      })
-      this.filterLeadsByAmName(res);
-    });
-    await this.sortLeaderboard(this.state.sortByValue);
   }
 
    componentDidMount() {
