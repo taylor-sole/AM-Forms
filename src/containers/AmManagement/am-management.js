@@ -3,7 +3,6 @@ import '../../styles/App.css';
 import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
 import moment from 'moment-timezone';
-import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 
 class AmManagement extends Component {
 
@@ -143,10 +142,19 @@ class AmManagement extends Component {
 
       const lastMonthStart = moment().startOf('month').subtract(1, 'month');
       const lastMonthEnd = moment().endOf('month').subtract(1, 'month');
+
+      const twoMonthsAgoStart = moment().startOf('month').subtract(2, 'month');
+      const twoMonthsAgoEnd = moment().endOf('month').subtract(2, 'month');
+
       if (selectedTime === moment().subtract(1,'month').format('MMMM')) {
         await this.setState({
           leadsPeriodStartDate: lastMonthStart,
           leadsPeriodEndDate: lastMonthEnd
+        })
+      } else if (selectedTime === moment().subtract(2,'month').format('MMMM')) {
+        await this.setState({
+          leadsPeriodStartDate: twoMonthsAgoStart,
+          leadsPeriodEndDate: twoMonthsAgoEnd
         })
       } else {
         await this.setState({
@@ -298,7 +306,6 @@ class AmManagement extends Component {
           </div>
         {
           this.state.viewReportFor === 'Overall' ?
-          // <AmManagementOverview {...this.state} />
           <div id="am-leaderboard-section">
           <div className="leaderboard-title-dropdown-contain">
           <p>Leaderboard</p>
