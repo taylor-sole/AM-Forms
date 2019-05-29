@@ -11,9 +11,14 @@ class AmDashboard extends Component {
     super(props);
     this.state = {
       leaderboardList: null,
-      sortByValue: null
+      sortByValue: null,
+      avgLeadsValue: null
     }
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.state.leaderboardList)
   }
 
   sortLeaderboard(event) {
@@ -54,7 +59,7 @@ class AmDashboard extends Component {
         allLeads = leadsList.map((accountManager, i) => (
         <tr>
           <td>{accountManager.name}</td>
-          <td>{accountManager.total}</td> 
+          <td>{accountManager.total}</td>
         </tr>
         ))
       }
@@ -72,6 +77,7 @@ class AmDashboard extends Component {
             </div>
             <ul className="am-leaderboard-list">
             <p><strong>Total: {this.props.totalLeads}</strong></p>
+            <p><strong>Average: {}</strong></p>
             <table className="leads-list">
               {allLeads}
             </table>
