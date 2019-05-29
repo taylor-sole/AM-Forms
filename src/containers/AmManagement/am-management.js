@@ -86,7 +86,7 @@ class AmManagement extends Component {
   }
 
     findAverage() {
-      console.log(this.state)
+      console.log(this.state.totalLeads / this.state.leaderboardList.length)
     }
 
    async handleTimePeriod(selectedTime) {
