@@ -86,7 +86,6 @@ class AmManagement extends Component {
   }
 
     findAverage() {
-      let totalLeadsNumber = this.state.totalLeads.slice(0);
       console.log(this.state)
     }
 
