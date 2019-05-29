@@ -308,6 +308,7 @@ class AmManagement extends Component {
         {
           this.state.viewReportFor === 'Overall' ?
           <div id="am-leaderboard-section">
+          {/* <AmManagementOverview {...this.state} /> */}
           <div className="leaderboard-title-dropdown-contain">
           <p>Leaderboard</p>
             <select onChange={this.handleSortByValue}>
