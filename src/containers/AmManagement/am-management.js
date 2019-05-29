@@ -86,7 +86,10 @@ class AmManagement extends Component {
   }
 
     findAverage() {
-      console.log(this.state.totalLeads / this.state.leaderboardList.length)
+      let averageLeadNum = Math.round(this.state.totalLeads / this.state.leaderboardList.length);
+      this.setState({
+        avgLeadsValue: averageLeadNum
+      })
     }
 
    async handleTimePeriod(selectedTime) {
