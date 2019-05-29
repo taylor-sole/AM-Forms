@@ -29,6 +29,7 @@ class AmManagement extends Component {
     this.handleAmSelection = this.handleAmSelection.bind(this);
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
     this.handleSortByValue = this.handleSortByValue.bind(this);
+    this.findAverage = this.findAverage.bind(this);
   }
 
   async handleSortByValue(event) {
@@ -42,19 +43,12 @@ class AmManagement extends Component {
     let listToSort = this.state.leadsByAm.slice(0);
     if (valueToSortBy === 'desc') {
       listToSort.sort(function(a, b){return b.total-a.total});
-      this.setState({
-        leaderboardList: listToSort
-      })
     } else if (valueToSortBy === 'asc') {
       listToSort.sort(function(a, b){return a.total-b.total});
-      this.setState({
-        leaderboardList: listToSort
-      })
-    } else {
-      this.setState({
-        leaderboardList: this.state.leadsByAm
-      })
     }
+    this.setState({
+      leaderboardList: listToSort
+    })
   }
 
   filterLeadsByAmName(res) {
@@ -90,6 +84,11 @@ class AmManagement extends Component {
         leadsByAm: arrayWithTotals
       })
   }
+
+    findAverage() {
+      let totalLeadsNumber = this.state.totalLeads.slice(0);
+      console.log(this.state)
+    }
 
    async handleTimePeriod(selectedTime) {
     const date = await new Date();
@@ -166,13 +165,13 @@ class AmManagement extends Component {
       }
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
-      console.log(res)
       this.setState({
         totalLeads: res.length
       })
       this.filterLeadsByAmName(res);
     });
     await this.sortLeaderboard(this.state.sortByValue);
+    await this.findAverage();
   }
 
    componentDidMount() {
