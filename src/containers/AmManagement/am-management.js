@@ -23,7 +23,8 @@ class AmManagement extends Component {
       timePeriodSelected: 'current week',
       leaderboardList: null,
       sortByValue: 'alphabetical',
-      weekOrMonth: 'week'
+      weekOrMonth: 'week',
+      avgLeadsValue: null
     }
     this.handleAmSelection = this.handleAmSelection.bind(this);
     this.sortLeaderboard = this.sortLeaderboard.bind(this);
@@ -165,6 +166,7 @@ class AmManagement extends Component {
       }
     }
     await getAllLeads(moment(this.state.leadsPeriodStartDate).format('MM-DD-YYYY'), moment(this.state.leadsPeriodEndDate).format()).then((res) => {
+      console.log(res)
       this.setState({
         totalLeads: res.length
       })
@@ -319,6 +321,7 @@ class AmManagement extends Component {
           </div>
           <ul className="am-leaderboard-list">
           <p><strong>Total: {this.state.totalLeads}</strong></p>
+          <p><strong>Average: {this.state.avgLeadsValue}</strong></p>
           <table className="leads-list">
             {allLeads}
           </table>
