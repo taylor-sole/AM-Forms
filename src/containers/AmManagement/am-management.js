@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../../styles/App.css';
 import { getAllLeads, amDeleteLead } from '../../services/leads-service';
 import ManagementNav from '../../components/ManagementNav/management-nav';
-import moment from 'moment-timezone';
+import moment from 'moment';
+import AmManagementOverview from '../../components/AmManagementOverview/am-management-overview';
 
 class AmManagement extends Component {
 
@@ -137,8 +138,8 @@ class AmManagement extends Component {
           lastWeekStart: lastWeekStart
         })
     } else {
-      const currentMonthStart = moment().tz("America/Los_Angeles").startOf('month');
-      const currentMonthEnd = moment().tz("America/Los_Angeles").endOf('month');
+      const currentMonthStart = moment().startOf('month');
+      const currentMonthEnd = moment().endOf('month');
 
       const lastMonthStart = moment().startOf('month').subtract(1, 'month');
       const lastMonthEnd = moment().endOf('month').subtract(1, 'month');
